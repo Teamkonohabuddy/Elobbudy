@@ -1,0 +1,11 @@
+c:\users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\bin\Debug\Ryze.exe.config
+C:\Users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\bin\Debug\Ryze.exe
+C:\Users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\bin\Debug\Ryze.pdb
+C:\Users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\bin\Debug\EloBuddy.dll
+C:\Users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\bin\Debug\EloBuddy.SDK.dll
+C:\Users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\bin\Debug\SharpDX.dll
+C:\Users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\bin\Debug\Newtonsoft.Json.dll
+C:\Users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\obj\Debug\Ryze.exe
+C:\Users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\obj\Debug\Ryze.pdb
+C:\Users\sergi\documents\visual studio 2013\Projects\Ryze\Ryze\obj\Debug\Ryze.csprojResolveAssemblyReference.cache

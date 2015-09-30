@@ -126,10 +126,10 @@ namespace Ryze
 
         private static void JungleClear()
         {
-            var jungleclearQ = LaneClearMenu["JQ"].Cast<CheckBox>().CurrentValue;
-            var jungleclearW = LaneClearMenu["JW"].Cast<CheckBox>().CurrentValue;
-            var jungleclearE = LaneClearMenu["JE"].Cast<CheckBox>().CurrentValue;
-            var jungleclearR = LaneClearMenu["JR"].Cast<CheckBox>().CurrentValue;
+            var jungleclearQ = JungleclearMenu["JQ"].Cast<CheckBox>().CurrentValue;
+            var jungleclearW = JungleclearMenu["JW"].Cast<CheckBox>().CurrentValue;
+            var jungleclearE = JungleclearMenu["JE"].Cast<CheckBox>().CurrentValue;
+            var jungleclearR = JungleclearMenu["JR"].Cast<CheckBox>().CurrentValue;
             Obj_AI_Base minion =
                 EntityManager.GetJungleMonsters(
      
@@ -167,22 +167,25 @@ namespace Ryze
                     ObjectManager.Player.Position.To2D(),
                     600,
                     true).FirstOrDefault();
-            if (laneclearQ && Q.IsReady())
+            if (minion != null)
             {
-                var Qpred = Q.GetPrediction(minion);
-                Q.Cast(Qpred.UnitPosition);
-            }
-            if (laneclearE && E.IsReady())
-            {
-                E.Cast(minion);
-            }
-            if (laneclearW && W.IsReady())
-            {
-                W.Cast(minion);
-            }
-            if (laneclearR && R.IsReady() && GetPassiveBuff >= 4)
-            {
-                R.Cast();
+                if (laneclearQ && Q.IsReady())
+                {
+                    var Qpred = Q.GetPrediction(minion);
+                    Q.Cast(Qpred.UnitPosition);
+                }
+                if (laneclearE && E.IsReady())
+                {
+                    E.Cast(minion);
+                }
+                if (laneclearW && W.IsReady())
+                {
+                    W.Cast(minion);
+                }
+                if (laneclearR && R.IsReady() && GetPassiveBuff >= 4)
+                {
+                    R.Cast();
+                }
             }
         }
 

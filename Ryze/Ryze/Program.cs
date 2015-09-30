@@ -16,7 +16,7 @@ namespace Ryze
     //Ryze
     internal class Program
     {
-        private static Menu menu, ComboMenu, DrawMenu, HarrashMenu, LaneClearMenu,JungleclearMenu;
+        private static Menu menu, ComboMenu, DrawMenu, HarrashMenu, LaneClearMenu,JungleclearMenu,miscMenu;
 
         private static Spell.Skillshot Q;
 
@@ -24,6 +24,7 @@ namespace Ryze
 
         private static Spell.Active R;
 
+        public static AIHeroClient selected;
         public static AIHeroClient myHero
         {
             get
@@ -81,6 +82,7 @@ namespace Ryze
             LaneClearMenu.Add("LR", new CheckBox("Use R"));
             DrawMenu = menu.AddSubMenu("Draw", "draw");
             HarrashMenu.Add("HQ", new CheckBox("Use Q"));
+            
             ComboMenu.Add("CQ", new CheckBox("Use Q"));
             ComboMenu.Add("CE", new CheckBox("Use E"));
             ComboMenu.Add("CW", new CheckBox("Use W"));
@@ -89,6 +91,9 @@ namespace Ryze
             DrawMenu.Add("DQ", new CheckBox("Draw Q"));
             DrawMenu.Add("DW", new CheckBox("Draw W"));
             DrawMenu.Add("DE", new CheckBox("Draw E"));
+            miscMenu = menu.AddSubMenu("Misc", "Misc");
+            miscMenu.Add("LockTar", new CheckBox("Active focus Selected Target"));
+
         }
 
         private static void OnLoad(EventArgs args)
@@ -101,7 +106,27 @@ namespace Ryze
             R = new Spell.Active(SpellSlot.R);
             LoadMenu();
             Game.OnUpdate += Game_OnUpdate;
+            Game.OnWndProc += OnProc;
             Drawing.OnDraw += Drawing_OnDraw;
+        }
+
+        private static void OnProc(WndEventArgs args)
+        {
+
+            if (args.Msg != (uint)WindowMessages.LeftButtonDown)
+            {
+                return;
+            }
+            var trys = HeroManager.Enemies
+              .FindAll(hero => hero.IsValidTarget() && hero.Distance(Game.CursorPos, true) < 40000) // 200 * 200
+              .OrderBy(h => h.Distance(Game.CursorPos, true)).FirstOrDefault();
+            if (trys != null)
+            {
+                selected= HeroManager.Enemies
+                    .FindAll(hero => hero.IsValidTarget() && hero.Distance(Game.CursorPos, true) < 40000) // 200 * 200
+                    .OrderBy(h => h.Distance(Game.CursorPos, true)).FirstOrDefault();
+            }
+
         }
 
         private static void Game_OnUpdate(EventArgs args)
@@ -193,6 +218,7 @@ namespace Ryze
         {
 
             var target = TargetSelector.GetTarget(900, DamageType.Magical);
+            if (miscMenu["LockTar"].Cast<CheckBox>().CurrentValue && selected != null && selected.IsVisible && selected.Position.Distance(ObjectManager.Player) <= 570) target = selected;
             var qSpell = HarrashMenu["HQ"].Cast<CheckBox>().CurrentValue;
             if (target != null)
             {
@@ -215,6 +241,10 @@ namespace Ryze
             if (qSpell) Circle.Draw(Color.AliceBlue, Q.Range, Player.Instance.Position);
             if (wSpell) Circle.Draw(Color.AliceBlue, W.Range, Player.Instance.Position);
             if (eSpell) Circle.Draw(Color.DarkGray, E.Range, Player.Instance.Position);
+            if (miscMenu["LockTar"].Cast<CheckBox>().CurrentValue &&selected != null && selected.IsVisible)
+            {
+                Circle.Draw(Color.Red, 100, selected.Position);
+            }
         }
 
         public static int GetPassiveBuff
@@ -229,7 +259,9 @@ namespace Ryze
 
         private static void Combo()
         {
-            var target = TargetSelector.GetTarget(600, DamageType.Magical);
+
+            var target = TargetSelector.GetTarget(570, DamageType.Magical);
+            if (miscMenu["LockTar"].Cast<CheckBox>().CurrentValue && selected != null && selected.IsVisible && selected.Position.Distance(ObjectManager.Player) <= 570) target = selected;
             if (target != null)
             {
                 var qpred = Q.GetPrediction(target);

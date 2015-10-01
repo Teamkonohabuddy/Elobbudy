@@ -1,0 +1,11 @@
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\ConsoleApplication3.exe.config
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\ConsoleApplication3.exe
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\ConsoleApplication3.pdb
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\EloBuddy.dll
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\EloBuddy.SDK.dll
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\SharpDX.Direct3D9.dll
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\SharpDX.dll
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\Newtonsoft.Json.dll
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\ConsoleApplication3.csprojResolveAssemblyReference.cache
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\ConsoleApplication3.exe
+c:\users\mente\documents\visual studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\ConsoleApplication3.pdb

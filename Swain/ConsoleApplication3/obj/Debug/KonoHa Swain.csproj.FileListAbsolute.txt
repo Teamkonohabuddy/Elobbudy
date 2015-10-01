@@ -1,0 +1,11 @@
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\KonoHa Swain.exe.config
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\KonoHa Swain.exe
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\KonoHa Swain.pdb
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\EloBuddy.dll
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\EloBuddy.SDK.dll
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\SharpDX.dll
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\Newtonsoft.Json.dll
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\KonoHa Swain.csprojResolveAssemblyReference.cache
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\KonoHa Swain.exe
+C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\KonoHa Swain.pdb

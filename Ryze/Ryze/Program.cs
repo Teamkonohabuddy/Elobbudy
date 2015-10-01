@@ -174,7 +174,7 @@ namespace Ryze
             {
                 W.Cast(minion);
             }
-            if (jungleclearR && R.IsReady() && GetPassiveBuff >= 4)
+            if (jungleclearR && R.IsReady() && (GetPassiveBuff >= 4 || myHero.HasBuff("ryzepassivecharged")))
             {
                 R.Cast();
             }
@@ -207,7 +207,7 @@ namespace Ryze
                 {
                     W.Cast(minion);
                 }
-                if (laneclearR && R.IsReady() && GetPassiveBuff >= 4)
+                if (laneclearR && R.IsReady() && (GetPassiveBuff >= 4 || myHero.HasBuff("ryzepassivecharged")))
                 {
                     R.Cast();
                 }

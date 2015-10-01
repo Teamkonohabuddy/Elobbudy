@@ -25,12 +25,12 @@ namespace KonohaSwain
         public static Menu menu,
             ComboMenu,
             HarrassMenu,
-            LasthitMenu,
             LaneclearMenu,
             JungleclearMenu,
             MiscMenu,
-            DrawingsMenu;
-
+            DrawingsMenu,   
+            SkinHackMenu;
+        private static Dictionary<AIHeroClient, Slider> _SkinVals = new Dictionary<AIHeroClient, Slider>();
         private static void Main(string[] args)
         {
             Loading.OnLoadingComplete += OnLoad;
@@ -46,9 +46,89 @@ namespace KonohaSwain
             Loadmenu();
             Game.OnUpdate += Game_OnUpdate;
             Game.OnWndProc += OnProc;
+            _SkinVals[ObjectManager.Player].OnValueChange += Program_OnValueChange;
             Drawing.OnDraw += Drawing_OnDraw;
         }
+        static void JungleClear()
+        {
+            var jungleQ = LaneclearMenu["LQ"].Cast<CheckBox>().CurrentValue;
+            var jungleW = LaneclearMenu["LW"].Cast<CheckBox>().CurrentValue;
+            var jungleE = LaneclearMenu["LE"].Cast<CheckBox>().CurrentValue;
+            var jungleR = LaneclearMenu["LR"].Cast<CheckBox>().CurrentValue;
+            Obj_AI_Base minion =
+        EntityManager.GetJungleMonsters(
 
+            ObjectManager.Player.Position.To2D(),
+            600,
+            true).FirstOrDefault();
+            if (minion != null)
+            {
+
+                if (jungleQ)
+                    Q.Cast(minion);
+                if (jungleW)
+                    W.Cast(minion);
+                if (jungleE)
+                    E.Cast(minion);
+                if (jungleR && R.Handle.ToggleState == 1)
+                {
+                    R.Cast();
+                    lanet = true;
+                }
+
+
+            }
+            else
+            {
+                if (R.Handle.ToggleState == 2)
+                {
+                    R.Cast();
+                    lanet = false;
+                }
+            }
+        }
+        private static void Laneclear()
+        {
+
+            var laneQ = LaneclearMenu["LQ"].Cast<CheckBox>().CurrentValue;
+            var laneW = LaneclearMenu["LW"].Cast<CheckBox>().CurrentValue;
+            var laneE = LaneclearMenu["LE"].Cast<CheckBox>().CurrentValue;
+            var laneR = LaneclearMenu["LR"].Cast<CheckBox>().CurrentValue;
+            Obj_AI_Base minion =
+         EntityManager.GetLaneMinions(
+             EntityManager.UnitTeam.Enemy,
+             ObjectManager.Player.Position.To2D(),
+             600,
+             true).FirstOrDefault();
+            if (minion != null)
+            {
+
+                if (laneQ)
+                    Q.Cast(minion);
+                if (laneW)
+                    W.Cast(minion);
+                if (laneE)
+                    E.Cast(minion);
+                if (laneR && R.Handle.ToggleState == 1)
+                {
+                    R.Cast();
+                    lanet = true;
+                }
+
+
+            }
+            else
+            {
+                if (R.Handle.ToggleState == 2)
+                {
+                    R.Cast();
+                    lanet = false;
+                }
+            }
+
+        }
+
+        public static bool lanet , julet;
         private static void Drawing_OnDraw(EventArgs args)
         {
             var drawQ = DrawingsMenu["Draw Q"].Cast<CheckBox>().CurrentValue;
@@ -86,27 +166,38 @@ namespace KonohaSwain
 
 
             }
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear))
+            {
+                Laneclear();
+                JungleClear();
+                if (lanet == true && R.Handle.ToggleState == 2)
+                {
+                    R.Cast();
+                    Rac = false;
+                }
+            }
         }
 
         private static void Combo()
         {
-            var comboQ = ComboMenu["SQ"].Cast<CheckBox>().CurrentValue;
-            var comboW = ComboMenu["SW"].Cast<CheckBox>().CurrentValue;
-            var comboE = ComboMenu["SE"].Cast<CheckBox>().CurrentValue;
-            var comboR = ComboMenu["SR"].Cast<CheckBox>().CurrentValue;
+            var comboQ = ComboMenu["CQ"].Cast<CheckBox>().CurrentValue;
+            var comboW = ComboMenu["CW"].Cast<CheckBox>().CurrentValue;
+            var comboE = ComboMenu["CE"].Cast<CheckBox>().CurrentValue;
+            var comboR = ComboMenu["CR"].Cast<CheckBox>().CurrentValue;
             var target = TargetSelector.GetTarget(700, DamageType.Magical);
             if ( selected != null && selected.IsVisible && selected.Position.Distance(ObjectManager.Player) <= 570) target = selected;
             if (target != null)
             {
 
                 var Wpred = W.GetPrediction(target);
+                if(comboE)
                 E.Cast(target);
-                if (ObjectManager.Player.Distance(target) <= 550)
+                if (comboQ&&ObjectManager.Player.Distance(target) <= 550)
                     Q.Cast(target);
                 if(target.HasBuffOfType(BuffType.Slow))
                 W.Cast(Wpred.UnitPosition);
         
-                if (R.Handle.ToggleState == 1)
+                if (comboR&&R.Handle.ToggleState == 1)
                 {
                     R.Cast();
                     Rac = true;
@@ -141,34 +232,46 @@ namespace KonohaSwain
         private static void Loadmenu()
         {
             menu = MainMenu.AddMenu("Swain", "Swain");
-            ComboMenu = menu.AddSubMenu("Combo", "combomenu");
+            ComboMenu = menu.AddSubMenu("Combo", "Combomenu");
             HarrassMenu = menu.AddSubMenu("Harrass", "Harrassmenu");
-            LasthitMenu = menu.AddSubMenu("Lasthit", "Lasthitmenu");
-            JungleclearMenu = menu.AddSubMenu("Laneclear", "Laneclearmenu");
+            LaneclearMenu = menu.AddSubMenu("Laneclear", "Laneclearmenu");
+            JungleclearMenu = menu.AddSubMenu("Jungleclear", "Jungleclearmenu");
             MiscMenu = menu.AddSubMenu("Misc", "Miscmenu");
             DrawingsMenu = menu.AddSubMenu("Drawings", "Drawingsmenu");
-            ComboMenu.Add("SQ", new CheckBox("Use Q"));
-            ComboMenu.Add("SW", new CheckBox("Use W"));
-            ComboMenu.Add("SE", new CheckBox("Use E"));
-            ComboMenu.Add("SR", new CheckBox("Use R"));
+            ComboMenu.Add("CQ", new CheckBox("Use Q"));
+            ComboMenu.Add("CW", new CheckBox("Use W"));
+            ComboMenu.Add("CE", new CheckBox("Use E"));
+            ComboMenu.Add("CR", new CheckBox("Use R"));
             ComboMenu.Add("StopRMana%", new Slider("Stop R when ur MP %", 1, 0, 100));
             ComboMenu.Add("ManualR", new CheckBox("Manual R"));
-            HarrassMenu.Add("SQ", new CheckBox("Use Q"));
-            HarrassMenu.Add("SE", new CheckBox("Use E"));
-            HarrassMenu.Add("SR", new CheckBox("Use R"));
-            LasthitMenu.Add("SQ", new CheckBox("Use Q"));
-            LasthitMenu.Add("SE", new CheckBox("Use E"));
-            LasthitMenu.Add("SR", new CheckBox("Use R"));
-            JungleclearMenu.Add("SQ", new CheckBox("Use Q"));
-            JungleclearMenu.Add("SW", new CheckBox("Use W"));
-            JungleclearMenu.Add("SE", new CheckBox("Use E"));
-            JungleclearMenu.Add("SR", new CheckBox("Use R"));
+            HarrassMenu.Add("HQ", new CheckBox("Use Q"));
+            HarrassMenu.Add("HE", new CheckBox("Use E"));
+            HarrassMenu.Add("HR", new CheckBox("Use R"));
+            LaneclearMenu.Add("LQ", new CheckBox("Use Q"));
+            LaneclearMenu.Add("Lw", new CheckBox("Use W"));
+            LaneclearMenu.Add("LE", new CheckBox("Use E"));
+            LaneclearMenu.Add("LR", new CheckBox("Use R"));
+            JungleclearMenu.Add("JQ", new CheckBox("Use Q"));
+            JungleclearMenu.Add("JW", new CheckBox("Use W"));
+            JungleclearMenu.Add("JE", new CheckBox("Use E"));
+            JungleclearMenu.Add("JR", new CheckBox("Use R"));
             MiscMenu.Add("Antigapclosers", new CheckBox("Use W Antigapclosers"));
             MiscMenu.Add("RecoverHp", new Slider("Use R when ur HP % ", 1, 0, 100));
             DrawingsMenu.Add("Draw Q", new CheckBox("Draw Q"));
             DrawingsMenu.Add("Draw W", new CheckBox("Draw W"));
             DrawingsMenu.Add("Draw E", new CheckBox("Draw E"));
             DrawingsMenu.Add("Draw R", new CheckBox("Draw R"));
+            SkinHackMenu = menu.AddSubMenu("SkinHack", "SkinHack");
+            var slid = SkinHackMenu.Add("Skin", new Slider("SkinHack", 0, 0, 3));
+            Player.SetSkinId(slid.CurrentValue);
+            _SkinVals.Add(ObjectManager.Player, slid);
+        }
+         private static void Program_OnValueChange(ValueBase<int> sender, ValueBase<int>.ValueChangeArgs args)
+        {
+            var hero = ObjectManager.Get<AIHeroClient>().Where(x => x.BaseSkinName == sender.DisplayName.Replace("Skin ID ", "")).FirstOrDefault();
+            if (hero == null)
+                return;
+            hero.SetSkinId(args.NewValue);
         }
     }
 }

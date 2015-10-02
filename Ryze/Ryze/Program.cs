@@ -16,13 +16,14 @@ namespace Ryze
     //Ryze
     internal class Program
     {
-        private static Menu menu, ComboMenu, DrawMenu, HarrashMenu, LaneClearMenu,JungleclearMenu,miscMenu;
+        private static Dictionary<AIHeroClient, Slider> _SkinVals = new Dictionary<AIHeroClient, Slider>();
+        private static Menu menu, ComboMenu, DrawMenu, HarrashMenu, LaneClearMenu,JungleclearMenu,miscMenu, SkinHackMenu;
 
-        private static Spell.Skillshot Q;
+      public static Spell.Skillshot Q;
 
-        private static Spell.Targeted W, E;
+     public static Spell.Targeted W, E;
 
-        private static Spell.Active R;
+       public static Spell.Active R;
 
         public static AIHeroClient selected;
         public static AIHeroClient myHero
@@ -33,32 +34,6 @@ namespace Ryze
             }
         }
 
-        private static double QDamage(Obj_AI_Base target)
-        {
-            return ObjectManager.Player.CalculateDamageOnUnit(
-                target,
-                DamageType.Magical,
-                (float)
-                (new double[] { 60, 85, 110, 135, 160 }[Q.Level - 1] + 0.55 * myHero.FlatMagicDamageMod
-                 + new double[] { 2, 2.5, 3.0, 3.5, 4.0 }[Q.Level - 1] / 100 * myHero.MaxMana));
-        }
-
-        public static float WDamage(Obj_AI_Base target)
-        {
-            return myHero.CalculateDamageOnUnit(
-                target,
-                DamageType.Magical,
-                new[] { 80, 100, 120, 140, 160 }[W.Level - 1] + 0.4f * myHero.FlatMagicDamageMod
-                + 0.02f * myHero.MaxMana);
-        }
-
-        public static float EDamage(Obj_AI_Base target)
-        {
-            return myHero.CalculateDamageOnUnit(
-                target,
-                DamageType.Magical,
-                new[] { 36, 52, 68, 84, 100 }[E.Level - 1] + 0.2f * myHero.FlatMagicDamageMod + 0.025f * myHero.MaxMana);
-        }
 
         private static void Main(string[] args)
         {
@@ -69,7 +44,9 @@ namespace Ryze
         {
             menu = MainMenu.AddMenu("Ryze", "Ryze");
             ComboMenu = menu.AddSubMenu("Combo", "combo");
+            SkinHackMenu = menu.AddSubMenu("SkinHack", "SkinHack");
             HarrashMenu = menu.AddSubMenu("Harrash", "Harrash");
+            HarrashMenu.Add("HMANA", new Slider("Min. mana for harrash :", 40, 0, 100));
             LaneClearMenu = menu.AddSubMenu("Laneclear", "Laneclear");
             JungleclearMenu = menu.AddSubMenu("Jungleclear", "Jungleclear");
             JungleclearMenu.Add("JQ", new CheckBox("Use Q"));
@@ -80,6 +57,7 @@ namespace Ryze
             LaneClearMenu.Add("LW", new CheckBox("Use W"));
             LaneClearMenu.Add("LE", new CheckBox("Use E"));
             LaneClearMenu.Add("LR", new CheckBox("Use R"));
+            LaneClearMenu.Add("LMANA", new Slider("Min. mana for laneclear :", 0, 0, 100));
             DrawMenu = menu.AddSubMenu("Draw", "draw");
             HarrashMenu.Add("HQ", new CheckBox("Use Q"));
             
@@ -91,9 +69,22 @@ namespace Ryze
             DrawMenu.Add("DQ", new CheckBox("Draw Q"));
             DrawMenu.Add("DW", new CheckBox("Draw W"));
             DrawMenu.Add("DE", new CheckBox("Draw E"));
+            DrawMenu.Add("DD", new CheckBox("Draw Damage"));
             miscMenu = menu.AddSubMenu("Misc", "Misc");
             miscMenu.Add("LockTar", new CheckBox("Active focus Selected Target"));
+            var slid = SkinHackMenu.Add(ObjectManager.Player.BaseSkinName, new Slider("Select Ryze skin : ", 0, 0, 8));
+            Player.SetSkinId(slid.CurrentValue);
+            _SkinVals.Add(ObjectManager.Player, slid);
+            _SkinVals[ObjectManager.Player].OnValueChange += Program_OnValueChange;
 
+        }
+
+        private static void Program_OnValueChange(ValueBase<int> sender, ValueBase<int>.ValueChangeArgs args)
+        {
+            var hero = ObjectManager.Get<AIHeroClient>().Where(x => x.BaseSkinName == sender.DisplayName.Replace("Skin ID ", "")).FirstOrDefault();
+            if (hero == null)
+                return;
+            hero.SetSkinId(args.NewValue);
         }
 
         private static void OnLoad(EventArgs args)
@@ -186,13 +177,14 @@ namespace Ryze
             var laneclearW = LaneClearMenu["LW"].Cast<CheckBox>().CurrentValue;
             var laneclearE = LaneClearMenu["LE"].Cast<CheckBox>().CurrentValue;
             var laneclearR = LaneClearMenu["LR"].Cast<CheckBox>().CurrentValue;
+            var laneclearMinMana = LaneClearMenu["LMANA"].Cast<Slider>().CurrentValue;
             Obj_AI_Base minion =
                 EntityManager.GetLaneMinions(
                     EntityManager.UnitTeam.Enemy,
                     ObjectManager.Player.Position.To2D(),
                     600,
                     true).FirstOrDefault();
-            if (minion != null)
+            if (minion != null && Player.Instance.ManaPercent>laneclearMinMana)
             {
                 if (laneclearQ && Q.IsReady())
                 {
@@ -216,11 +208,11 @@ namespace Ryze
 
         private static void Harrash()
         {
-
+            var HarrashMinMana = HarrashMenu["hMANA"].Cast<Slider>().CurrentValue;
             var target = TargetSelector.GetTarget(900, DamageType.Magical);
             if (miscMenu["LockTar"].Cast<CheckBox>().CurrentValue && selected != null && selected.IsVisible && selected.Position.Distance(ObjectManager.Player) <= 570) target = selected;
             var qSpell = HarrashMenu["HQ"].Cast<CheckBox>().CurrentValue;
-            if (target != null)
+            if (target != null && Player.Instance.ManaPercent > HarrashMinMana)
             {
                 var qpred = Q.GetPrediction(target);
                 if (qSpell)
@@ -241,11 +233,13 @@ namespace Ryze
             if (qSpell) Circle.Draw(Color.AliceBlue, Q.Range, Player.Instance.Position);
             if (wSpell) Circle.Draw(Color.AliceBlue, W.Range, Player.Instance.Position);
             if (eSpell) Circle.Draw(Color.DarkGray, E.Range, Player.Instance.Position);
+            DamageCalc.DrawDamage();
             if (miscMenu["LockTar"].Cast<CheckBox>().CurrentValue &&selected != null && selected.IsVisible)
             {
                 Circle.Draw(Color.Red, 100, selected.Position);
             }
         }
+
 
         public static int GetPassiveBuff
         {
@@ -282,7 +276,7 @@ namespace Ryze
 
                         if (R.IsReady() && rSpell)
                         {
-                            if (target.IsValidTarget(W.Range) && target.Health > (QDamage(target) + EDamage(target)))
+                            if (target.IsValidTarget(W.Range) && target.Health > (DamageCalc.QDamage(target) + DamageCalc.EDamage(target)))
                             {
                                 if (rwwSpell && target.HasBuff("RyzeW")) R.Cast();
                                 if (!rwwSpell) R.Cast();
@@ -301,7 +295,7 @@ namespace Ryze
 
                         if (R.IsReady() && rSpell)
                         {
-                            if (target.IsValidTarget(W.Range) && target.Health > (QDamage(target) + EDamage(target)))
+                            if (target.IsValidTarget(W.Range) && target.Health > (DamageCalc.QDamage(target) + DamageCalc.EDamage(target)))
                             {
                                 if (rwwSpell && target.HasBuff("RyzeW")) R.Cast();
                                 if (!rwwSpell) R.Cast();
@@ -319,7 +313,7 @@ namespace Ryze
 
                         if (R.IsReady() && rSpell)
                         {
-                            if (target.IsValidTarget(W.Range) && target.Health > (QDamage(target) + EDamage(target)))
+                            if (target.IsValidTarget(W.Range) && target.Health > (DamageCalc.QDamage(target) + DamageCalc.EDamage(target)))
                             {
                                 if (rwwSpell && target.HasBuff("RyzeW")) R.Cast();
                                 if (!rwwSpell) R.Cast();
@@ -337,7 +331,7 @@ namespace Ryze
 
                         if (R.IsReady() && rSpell)
                         {
-                            if (target.IsValidTarget(W.Range) && target.Health > (QDamage(target)) + EDamage(target))
+                            if (target.IsValidTarget(W.Range) && target.Health > (DamageCalc.QDamage(target)) + DamageCalc.EDamage(target))
                             {
                                 if (rwwSpell && target.HasBuff("RyzeW")) R.Cast();
                                 if (!rwwSpell) R.Cast();

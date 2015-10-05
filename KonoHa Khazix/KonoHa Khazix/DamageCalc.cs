@@ -11,7 +11,7 @@ namespace KonoHa_Khazix
 
     static  class DamageCalc
     {
-    public static double GetQDamage(AIHeroClient target)
+    public static double GetQDamage(Obj_AI_Base target)
       {
           if (Program.getQ.Range < 326)
           {

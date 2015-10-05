@@ -9,3 +9,14 @@ c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Khazix\KonoHa Khazix
 c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Khazix\KonoHa Khazix\bin\Debug\Newtonsoft.Json.dll
 c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Khazix\KonoHa Khazix\obj\Debug\KonoHa Khazix.exe
 c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Khazix\KonoHa Khazix\obj\Debug\KonoHa Khazix.pdb
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\bin\Debug\KonoHa Khazix.exe.config
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\obj\Debug\KonoHa Khazix.exe
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\obj\Debug\KonoHa Khazix.pdb
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\obj\Debug\KonoHa Khazix.csprojResolveAssemblyReference.cache
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\bin\Debug\KonoHa Khazix.exe
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\bin\Debug\KonoHa Khazix.pdb
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\bin\Debug\EloBuddy.dll
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\bin\Debug\EloBuddy.SDK.dll
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\bin\Debug\SharpDX.dll
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Khazix\KonoHa Khazix\bin\Debug\Newtonsoft.Json.dll

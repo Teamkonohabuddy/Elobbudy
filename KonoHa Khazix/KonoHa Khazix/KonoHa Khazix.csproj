@@ -56,6 +56,7 @@
     <Compile Include="JumpsHandler.cs" />
     <Compile Include="Modes\Combo.cs" />
     <Compile Include="Modes\Harrass.cs" />
+    <Compile Include="Modes\LastHit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

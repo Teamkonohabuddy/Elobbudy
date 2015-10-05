@@ -158,8 +158,9 @@ namespace KonohaSwain
             }
             else
             {
-                if (Rac == true && R.Handle.ToggleState == 2)
+                if (Rac == true && !ComboMenu["ManualR"].Cast<CheckBox>().CurrentValue && R.Handle.ToggleState == 2)
                 {
+
                     R.Cast();
                     Rac = false;
                 }
@@ -184,6 +185,7 @@ namespace KonohaSwain
             var comboW = ComboMenu["CW"].Cast<CheckBox>().CurrentValue;
             var comboE = ComboMenu["CE"].Cast<CheckBox>().CurrentValue;
             var comboR = ComboMenu["CR"].Cast<CheckBox>().CurrentValue;
+            var comboManualR = ComboMenu["ManualR"].Cast<CheckBox>().CurrentValue;
             var target = TargetSelector.GetTarget(700, DamageType.Magical);
             if ( selected != null && selected.IsVisible && selected.Position.Distance(ObjectManager.Player) <= 570) target = selected;
             if (target != null)
@@ -203,7 +205,7 @@ namespace KonohaSwain
                     Rac = true;
                 }
             }
-            if (target == null && R.Handle.ToggleState == 2)
+            if (target == null&&! comboManualR && R.Handle.ToggleState == 2)
             {
                 R.Cast();
                 Rac = false;
@@ -243,7 +245,7 @@ namespace KonohaSwain
             ComboMenu.Add("CE", new CheckBox("Use E"));
             ComboMenu.Add("CR", new CheckBox("Use R"));
             ComboMenu.Add("StopRMana%", new Slider("Stop R when ur MP %", 1, 0, 100));
-            ComboMenu.Add("ManualR", new CheckBox("Manual R"));
+            ComboMenu.Add("ManualR", new CheckBox("Manual off R"));
             HarrassMenu.Add("HQ", new CheckBox("Use Q"));
             HarrassMenu.Add("HE", new CheckBox("Use E"));
             HarrassMenu.Add("HR", new CheckBox("Use R"));

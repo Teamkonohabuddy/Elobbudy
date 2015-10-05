@@ -24,7 +24,7 @@ namespace KonoHa_Khazix
 
     class Program
     {
-        public static Menu menu, ComboMenu, HarrassMenu,DrawingMenu,DoubleJumpMenu;
+        public static Menu menu, ComboMenu, HarrassMenu,DrawingMenu,DoubleJumpMenu,LastHitMenu;
         public static bool Jumping;
         public static bool evolQ=false, evolW=false, evolE=false, evolR=false;
         private static Spell.Targeted Q;
@@ -121,6 +121,10 @@ namespace KonoHa_Khazix
             {
                 Harrass.Do();
             }
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit))
+            {
+               LastHit.Do();
+            }
         }
 
         private static void checkEvol()
@@ -157,10 +161,16 @@ namespace KonoHa_Khazix
             ComboMenu.Add("WCG", new CheckBox("Use E to Gapcloser for W", true));
             ComboMenu.Add("RCG", new CheckBox("Use R after long Gapcloses", true));
 
-           HarrassMenu = menu.AddSubMenu("Harrass", "Harrass");
-           HarrassMenu.Add("QH", new CheckBox("Use Q", true));
+            HarrassMenu = menu.AddSubMenu("Harrass", "Harrass");
+            HarrassMenu.Add("QH", new CheckBox("Use Q", true));
             HarrassMenu.Add("WH", new CheckBox("Use W", true));
-
+            LastHitMenu = menu.AddSubMenu("LastHit", "LastHit");
+            LastHitMenu.Add("QL", new CheckBox("Use Q", true));
+       //     LastHitMenu.Add("WL", new CheckBox("Use W", true));
+    /*        LastHitMenu.Add(
+                "UL",
+                new CheckBox("Use spells only if cant hit with auto before minion die (Calc is not accurated)",
+                false));*/
             DrawingMenu = menu.AddSubMenu("Drawing", "Drawing");
             DrawingMenu.Add("DQ", new CheckBox("Draw Q", true));
             DrawingMenu.Add("DW", new CheckBox("Draw W", true));

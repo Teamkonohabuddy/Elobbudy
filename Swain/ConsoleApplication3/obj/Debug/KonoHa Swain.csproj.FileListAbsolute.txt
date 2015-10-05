@@ -9,3 +9,7 @@ C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\Console
 C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\KonoHa Swain.csprojResolveAssemblyReference.cache
 C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\KonoHa Swain.exe
 C:\Users\mente\Documents\Visual Studio 2015\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\KonoHa Swain.pdb
+C:\Users\sergi\Documents\GitHub\Elobbudy\Swain\ConsoleApplication3\bin\Debug\KonoHa Swain.exe.config
+C:\Users\sergi\Documents\GitHub\Elobbudy\Swain\ConsoleApplication3\obj\Debug\KonoHa Swain.exe
+C:\Users\sergi\Documents\GitHub\Elobbudy\Swain\ConsoleApplication3\obj\Debug\KonoHa Swain.pdb
+C:\Users\sergi\Documents\GitHub\Elobbudy\Swain\ConsoleApplication3\obj\Debug\KonoHa Swain.csprojResolveAssemblyReference.cache

@@ -20,7 +20,7 @@ namespace Ryze
     {
         private static bool Enabled;
         private const int XOffset = 10;
-        private const int YOffset = 20;
+        private const int YOffset = 0;
         private const int Width = 103;
         private const int Height = 8;
         private const int BarWidth = 104;
@@ -74,7 +74,7 @@ namespace Ryze
             Enabled = true;
 
             // Register event handlers
-            Drawing.OnDraw += DrawDamage;
+            Drawing.OnEndScene += DrawDamage;
         }
         public static void DrawDamage(EventArgs args)
         {

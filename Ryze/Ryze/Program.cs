@@ -112,7 +112,7 @@ namespace Ryze
             E = new Spell.Targeted(SpellSlot.E, 600);
             R = new Spell.Active(SpellSlot.R);
             LoadMenu();
-           // DamageCalc.Initialize(DamageCalc.GetComboDamage);
+       //     DamageCalc.Initialize(DamageCalc.GetComboDamage);
             Game.OnUpdate += Game_OnUpdate;
             Interrupter.OnInterruptableSpell += Events.InterruptableSpell;
             Gapcloser.OnGapcloser += Events.OnGapcloser;

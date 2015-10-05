@@ -14,14 +14,14 @@ namespace Ryze
     {
       public static void OnGapcloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs e)
         {
-            var Wuse = Program.ItemsMenu["WGapCloser"].Cast<CheckBox>().CurrentValue;
+            var Wuse = Program.miscMenu["WGapCloser"].Cast<CheckBox>().CurrentValue;
             if (!Wuse) return;
             Program.W.Cast(sender);
         }
 
        public static void InterruptableSpell(Obj_AI_Base sender, Interrupter.InterruptableSpellEventArgs e)
         {
-            var wSpell = Program.ItemsMenu["Use W Interrupt"].Cast<CheckBox>().CurrentValue;
+            var wSpell = Program.miscMenu["Use W Interrupt"].Cast<CheckBox>().CurrentValue;
             if (!wSpell) return;
             Program.W.Cast(sender);
         }

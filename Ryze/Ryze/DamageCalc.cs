@@ -12,12 +12,21 @@ namespace Ryze
     using EloBuddy;
     using EloBuddy.SDK;
 
+    using SharpDX;
+
+    using Color = System.Drawing.Color;
+
     static class DamageCalc
     {
+        private static bool Enabled;
         private const int XOffset = 10;
         private const int YOffset = 20;
         private const int Width = 103;
         private const int Height = 8;
+        private const int BarWidth = 104;
+        public delegate float DamageToUnitDelegate(AIHeroClient hero);
+        private static DamageToUnitDelegate DamageToUnit { get; set; }
+        private static readonly Vector2 BarOffset = new Vector2(10, 25);
         public static float QDamage(Obj_AI_Base target)
         {
             return ObjectManager.Player.CalculateDamageOnUnit(
@@ -57,30 +66,41 @@ namespace Ryze
                 damage += WDamage(enemy);
             return damage;
         }
-        public static void DrawDamage()
+        public static void Initialize(DamageToUnitDelegate damageToUnit)
         {
+            // Apply needed field delegate for damage calculation
+            DamageToUnit = damageToUnit;
+            DrawingColor = System.Drawing.Color.Green;
+            Enabled = true;
+
+            // Register event handlers
+            Drawing.OnDraw += DrawDamage;
+        }
+        public static void DrawDamage(EventArgs args)
+        {
+
             foreach (var unit in HeroManager.Enemies.Where(h => h.IsValid && h.IsHPBarRendered))
             {
-                var barPos = unit.HPBarPosition+(unit.TotalHeal/10);
-                var damage = GetComboDamage(unit);
-                var percentHealthAfterDamage = Math.Max(0, unit.Health - damage) / unit.MaxHealth;
-           //     var xPosDamage = barPos.X + XOffset + Width * percentHealthAfterDamage;
-             //   Drawing.DrawLine(barPos.X, barPos.Y + 10, barPos.X - (damage / 10), barPos.Y + 10, 1, Color.RoyalBlue);
-              /*  var percentHealthAfterDamage = Math.Max(0, unit.Health - damage) / unit.MaxHealth;
-                var yPos = barPos.Y + YOffset;
-                var xPosDamage = barPos.X + XOffset + Width * percentHealthAfterDamage;
-                var xPosCurrentHp = barPos.X + XOffset + Width * unit.Health / unit.MaxHealth;
-              //  Drawing.DrawText(Player.Instance.Position.WorldToScreen().X, Player.Instance.Position.WorldToScreen().Y, Color.Red, "Hola odos", 10);
-                Drawing.DrawLine(xPosDamage, yPos, xPosDamage, yPos + Height, 1, Color.LightBlue);
-                Drawing.DrawLine(xPosDamage, yPos, xPosDamage, yPos + Height, 1,Color.LightBlue);
-                
-                var differenceInHp = xPosCurrentHp - xPosDamage;
-                var pos1 = barPos.X + 9 + (107 * percentHealthAfterDamage);
-                for (var i = 0; i < differenceInHp; i++)
-                {
-                    Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + Height, 1, System.Drawing.Color.Goldenrod);
-                }*/
+                var damage = DamageToUnit(unit);
+
+                // Continue on 0 damage
+                //Chat.Print(""+damage);
+                if (damage <= 0)
+                    continue;
+
+                // Get remaining HP after damage applied in percent and the current percent of health
+                var damagePercentage = ((unit.Health - damage) > 0 ? (unit.Health - damage) : 0) / unit.MaxHealth;
+                var currentHealthPercentage = unit.Health / unit.MaxHealth;
+
+                // Calculate start and end point of the bar indicator
+                var startPoint = new Vector2((int)(unit.HPBarPosition.X + BarOffset.X + damagePercentage * BarWidth), (int)(unit.HPBarPosition.Y + BarOffset.Y) - 5);
+                var endPoint = new Vector2((int)(unit.HPBarPosition.X + BarOffset.X + currentHealthPercentage * BarWidth) + 1, (int)(unit.HPBarPosition.Y + BarOffset.Y) - 5);
+
+                // Draw the line
+                Drawing.DrawLine(startPoint, endPoint, 9,Color.Red);
             }
         }
+
+        public static Color DrawingColor { get; set; }
     }
 }

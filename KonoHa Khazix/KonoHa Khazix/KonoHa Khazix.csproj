@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BDF94240-972F-4F32-96EB-EC2CF5FF1E0B}</ProjectGuid>
+    <ProjectGuid>{77131FA2-646F-4DB3-A7C2-983E5663FCEA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ryze</RootNamespace>
-    <AssemblyName>Ryze</AssemblyName>
+    <RootNamespace>KonoHa_Khazix</RootNamespace>
+    <AssemblyName>KonoHa Khazix</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -53,8 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DamageCalc.cs" />
-    <Compile Include="Events.cs" />
-    <Compile Include="Items.cs" />
+    <Compile Include="JumpsHandler.cs" />
+    <Compile Include="Modes\Combo.cs" />
+    <Compile Include="Modes\Harrass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -17,14 +17,10 @@ namespace Ryze
     internal class Program
     {
         private static Dictionary<AIHeroClient, Slider> _SkinVals = new Dictionary<AIHeroClient, Slider>();
-        private static Menu menu, ComboMenu, DrawMenu, HarrashMenu, LaneClearMenu,JungleclearMenu,miscMenu, SkinHackMenu;
-
-      public static Spell.Skillshot Q;
-
-     public static Spell.Targeted W, E;
-
-       public static Spell.Active R;
-
+        public static Menu menu, ComboMenu, DrawMenu, HarrashMenu, LaneClearMenu,JungleclearMenu,miscMenu, SkinHackMenu,ItemsMenu,PotionMenu;
+        public static Spell.Skillshot Q;
+        public static Spell.Targeted W, E;
+        public static Spell.Active R;
         public static AIHeroClient selected;
         public static AIHeroClient myHero
         {
@@ -66,11 +62,31 @@ namespace Ryze
             ComboMenu.Add("CW", new CheckBox("Use W"));
             ComboMenu.Add("CR", new CheckBox("Use R"));
             ComboMenu.Add("CRo", new CheckBox("Use R only on Root"));
+         //   ComboMenu.Add("BlockAA", new CheckBox("Block AutoAttacks on combo"));
+            ItemsMenu = menu.AddSubMenu("Items Menu", "Items");
+            ItemsMenu.Add("TEAR", new CheckBox("Use Tear"));
+            ItemsMenu.Add("TEARFO", new CheckBox("Use Tear only on fountain"));
+            ItemsMenu.Add("tearSM", new Slider("Min % Mana to Stack Tear",40,0,100));
+            ItemsMenu.AddSeparator(25);
+            ItemsMenu.Add("SERAPH", new CheckBox("Use Serapth"));
+            ItemsMenu.Add("seraphHP", new Slider("Hp% for Serapth", 40, 0, 100));
+          /*  PotionMenu = ItemsMenu.AddSubMenu("PotionsMenu", "Potions Menu");
+            PotionMenu.Add("autoPO", new CheckBox("Use AutoPot"));
+            PotionMenu.Add("UsePotion", new CheckBox("Use Potion"));
+            PotionMenu.Add("PotionHP", new Slider("Potion HP", 50, 0, 0));
+            PotionMenu.Add("UseManaPotion", new CheckBox("Use Potion"));
+            PotionMenu.Add("ManaPotionHP", new Slider("Mana % ", 50, 0, 0));
+            PotionMenu.Add("UseBiscuit", new CheckBox("Use Potion"));
+            PotionMenu.Add("BiscuitHP", new Slider("Biscuit HP", 50, 0, 0));
+            PotionMenu.Add("flask", new CheckBox("Use flask"));
+            PotionMenu.Add("flaskHP", new Slider("flask HP", 50, 0, 0));*/
             DrawMenu.Add("DQ", new CheckBox("Draw Q"));
             DrawMenu.Add("DW", new CheckBox("Draw W"));
             DrawMenu.Add("DE", new CheckBox("Draw E"));
             DrawMenu.Add("DD", new CheckBox("Draw Damage"));
             miscMenu = menu.AddSubMenu("Misc", "Misc");
+            miscMenu.Add("WGapCloser", new CheckBox("Use W Gapcloser"));
+            miscMenu.Add("WInterrupt", new CheckBox("Use W Interrupt"));
             miscMenu.Add("LockTar", new CheckBox("Active focus Selected Target"));
             var slid = SkinHackMenu.Add(ObjectManager.Player.BaseSkinName, new Slider("Select Ryze skin : ", 0, 0, 8));
             Player.SetSkinId(slid.CurrentValue);
@@ -96,10 +112,18 @@ namespace Ryze
             E = new Spell.Targeted(SpellSlot.E, 600);
             R = new Spell.Active(SpellSlot.R);
             LoadMenu();
+           // DamageCalc.Initialize(DamageCalc.GetComboDamage);
             Game.OnUpdate += Game_OnUpdate;
+            Interrupter.OnInterruptableSpell += Events.InterruptableSpell;
+            Gapcloser.OnGapcloser += Events.OnGapcloser;
             Game.OnWndProc += OnProc;
+
             Drawing.OnDraw += Drawing_OnDraw;
         }
+
+     
+
+
 
         private static void OnProc(WndEventArgs args)
         {
@@ -122,6 +146,11 @@ namespace Ryze
 
         private static void Game_OnUpdate(EventArgs args)
         {
+  //          Orbwalker.DisableAttacking = false;
+            if (Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.None)
+            {
+                Items.Initzialize();
+            }
             if (Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Combo)
             {
                Combo();
@@ -233,13 +262,18 @@ namespace Ryze
             if (qSpell) Circle.Draw(Color.AliceBlue, Q.Range, Player.Instance.Position);
             if (wSpell) Circle.Draw(Color.AliceBlue, W.Range, Player.Instance.Position);
             if (eSpell) Circle.Draw(Color.DarkGray, E.Range, Player.Instance.Position);
-            DamageCalc.DrawDamage();
             if (miscMenu["LockTar"].Cast<CheckBox>().CurrentValue &&selected != null && selected.IsVisible)
             {
                 Circle.Draw(Color.Red, 100, selected.Position);
             }
         }
-
+        public static void AABlock()
+        {
+            if (LaneClearMenu["BlockAA"].Cast<CheckBox>().CurrentValue)
+            {
+                Orbwalker.DisableAttacking = true;
+            }
+        }
 
         public static int GetPassiveBuff
         {
@@ -253,12 +287,13 @@ namespace Ryze
 
         private static void Combo()
         {
-
+          //  AABlock();
             var target = TargetSelector.GetTarget(570, DamageType.Magical);
             if (miscMenu["LockTar"].Cast<CheckBox>().CurrentValue && selected != null && selected.IsVisible && selected.Position.Distance(ObjectManager.Player) <= 570) target = selected;
             if (target != null)
             {
                 var qpred = Q.GetPrediction(target);
+               var q= qpred.CollisionObjects;
                 var qSpell = ComboMenu["CQ"].Cast<CheckBox>().CurrentValue;
                 var eSpell = ComboMenu["CE"].Cast<CheckBox>().CurrentValue;
                 var wSpell = ComboMenu["CW"].Cast<CheckBox>().CurrentValue;

@@ -17,7 +17,7 @@ namespace KonoHa_Khazix.Modes
        {
            var UseQ = Program.LastHitMenu["QL"].Cast<CheckBox>().CurrentValue;
           // var UseW = Program.LastHitMenu["WL"].Cast<CheckBox>().CurrentValue;
-           var OnlyIfDie = Program.LastHitMenu["UL"].Cast<CheckBox>().CurrentValue;
+     //      var OnlyIfDie = Program.LastHitMenu["UL"].Cast<CheckBox>().CurrentValue;
 
       /*     if (OnlyIfDie)
            {

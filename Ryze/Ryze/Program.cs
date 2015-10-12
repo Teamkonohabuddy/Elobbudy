@@ -272,7 +272,7 @@ namespace Ryze
         }
         public static void AABlock()
         {
-            if (LaneClearMenu["BlockAA"].Cast<CheckBox>().CurrentValue)
+            if (ComboMenu["BlockAA"].Cast<CheckBox>().CurrentValue)
             {
                 Orbwalker.DisableAttacking = true;
             }
@@ -290,7 +290,7 @@ namespace Ryze
 
         private static void Combo()
         {
-          //  AABlock();
+           AABlock();
             var target = TargetSelector.GetTarget(570, DamageType.Magical);
             if (miscMenu["LockTar"].Cast<CheckBox>().CurrentValue && selected != null && selected.IsVisible && selected.Position.Distance(ObjectManager.Player) <= 570) target = selected;
             if (target != null)

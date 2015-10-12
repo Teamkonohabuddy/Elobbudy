@@ -36,7 +36,7 @@ namespace KonoHa_Khazix.Modes
                target = TargetSelector.GetTarget(Program.getE.Range, DamageType.Physical);
            }
 
-           if ((target != null))
+           if (target != null)
            {
                if (Vector3.Distance(Player.Instance.ServerPosition, target.ServerPosition) <=Program.getQ.Range &&Program.ComboMenu["QC"].Cast<CheckBox>().CurrentValue&&
              Program.getQ.IsReady() && !Program.Jumping)
@@ -124,7 +124,7 @@ namespace KonoHa_Khazix.Modes
            }
 
        }
-
+        
         public static void UseItems(AIHeroClient target)
         {
             

@@ -181,22 +181,25 @@ namespace Ryze
                     ObjectManager.Player.Position.To2D(),
                     600,
                     true).FirstOrDefault();
-            if (jungleclearQ && Q.IsReady())
+            if (minion != null)
             {
-                var Qpred = Q.GetPrediction(minion);
-                Q.Cast(Qpred.UnitPosition);
-            }
-            if (jungleclearE && E.IsReady())
-            {
-                E.Cast(minion);
-            }
-            if (jungleclearW && W.IsReady())
-            {
-                W.Cast(minion);
-            }
-            if (jungleclearR && R.IsReady() && (GetPassiveBuff >= 4 || myHero.HasBuff("ryzepassivecharged")))
-            {
-                R.Cast();
+                if (jungleclearQ && Q.IsReady())
+                {
+                    var Qpred = Q.GetPrediction(minion);
+                    Q.Cast(Qpred.UnitPosition);
+                }
+                if (jungleclearE && E.IsReady())
+                {
+                    E.Cast(minion);
+                }
+                if (jungleclearW && W.IsReady())
+                {
+                    W.Cast(minion);
+                }
+                if (jungleclearR && R.IsReady() && (GetPassiveBuff >= 4 || myHero.HasBuff("ryzepassivecharged")))
+                {
+                    R.Cast();
+                }
             }
         }
 

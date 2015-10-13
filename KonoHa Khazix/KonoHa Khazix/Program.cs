@@ -166,11 +166,6 @@ namespace KonoHa_Khazix
             HarrassMenu.Add("WH", new CheckBox("Use W", true));
             LastHitMenu = menu.AddSubMenu("LastHit", "LastHit");
             LastHitMenu.Add("QL", new CheckBox("Use Q", true));
-       //     LastHitMenu.Add("WL", new CheckBox("Use W", true));
-    /*        LastHitMenu.Add(
-                "UL",
-                new CheckBox("Use spells only if cant hit with auto before minion die (Calc is not accurated)",
-                false));*/
             DrawingMenu = menu.AddSubMenu("Drawing", "Drawing");
             DrawingMenu.Add("DQ", new CheckBox("Draw Q", true));
             DrawingMenu.Add("DW", new CheckBox("Draw W", true));

@@ -64,25 +64,26 @@ namespace KonoHa_Khazix.Modes
                }
 
 
-               if ((Vector3.Distance(Player.Instance.ServerPosition, target.ServerPosition) <= Program.getE.Range + Program.getQ.Range + (0.7 * Player.Instance.MoveSpeed) && Vector3.Distance(Player.Instance.ServerPosition, target.ServerPosition) > Program.getQ.Range && Program.getE.IsReady() &&
+              if ((Vector3.Distance(Player.Instance.ServerPosition, target.ServerPosition) <= Program.getE.Range + Program.getQ.Range + (0.7 * Player.Instance.MoveSpeed) && Vector3.Distance(Player.Instance.ServerPosition, target.ServerPosition) > Program.getQ.Range && Program.getE.IsReady() &&
          Program.ComboMenu["ECG"].Cast<CheckBox>().CurrentValue) || (Vector3.Distance(Player.Instance.ServerPosition, target.ServerPosition) <= Program.getE.Range + Program.getW.Range && Vector3.Distance(Player.Instance.ServerPosition, target.ServerPosition) > Program.getQ.Range && Program.getE.IsReady() && Program.getW.IsReady() &&
            Program.ComboMenu["WCG"].Cast<CheckBox>().CurrentValue))
                {
                   // PredictionOutput pred = E.GetPrediction(target);
-                   if (target.IsValid && !target.IsDead)
+
+                  if (target.IsValid && !target.IsDead)
                    {
                        if (Program.getE.GetPrediction(target).HitChance == HitChance.High)
                        Program.getE.Cast(target);
                    }
                    // UseRCG
-
-                   if (Program.ComboMenu["UseRCG"].Cast<CheckBox>().CurrentValue && Program.getR.IsReady())
+                  
+                   if (Program.ComboMenu["RCG"].Cast<CheckBox>().CurrentValue && Program.getR.IsReady())
                    {
                        Program.getR.Cast();
                    }
                }
 
-               if (Program.getR.IsReady() && !Program.getQ.IsReady() && !Program.getW.IsReady() && !Program.getE.IsReady() &&
+              if (Program.getR.IsReady() && !Program.getQ.IsReady() && !Program.getW.IsReady() && !Program.getE.IsReady() &&
                 Program.ComboMenu["RC"].Cast<CheckBox>().CurrentValue)  
                {
                       Program.getR.Cast();
@@ -106,6 +107,8 @@ namespace KonoHa_Khazix.Modes
                         }
                     }
                 }
+
+
                if (Vector3.Distance(Player.Instance.ServerPosition, target.ServerPosition) <= Program.getE.Range + (0.7 * Player.Instance.MoveSpeed) && Vector3.Distance(Player.Instance.ServerPosition, target.ServerPosition) > Program.getQ.Range &&
                  Program.ComboMenu["EC"].Cast<CheckBox>().CurrentValue && Program.getE.IsReady())
                {
@@ -120,7 +123,6 @@ namespace KonoHa_Khazix.Modes
                {
                    UseItems(target);
                }
-
            }
 
        }
@@ -132,7 +134,7 @@ namespace KonoHa_Khazix.Modes
 
        public static List<AIHeroClient> GetQTargets()
        {
-           var validtargets =       HeroManager.AllHeroes.Where(h => h.IsValidTarget(Program.getE.Range));
+           var validtargets = EntityManager.Heroes.AllHeroes.Where(h => h.IsValidTarget(Program.getE.Range));
            return (from x in validtargets let minions = ObjectManager.Get<Obj_AI_Base>().Where(xd => xd.IsEnemy && x.NetworkId != xd.NetworkId && x.ServerPosition.Distance(xd.ServerPosition) < 500 && (xd.Type == GameObjectType.AIHeroClient || xd.Type == GameObjectType.obj_AI_Minion || xd.Type == GameObjectType.obj_AI_Turret)) where !minions.Any() where !x.IsDead select x).ToList();
        }
    }

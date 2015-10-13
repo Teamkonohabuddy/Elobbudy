@@ -26,7 +26,7 @@ namespace KonoHa_Khazix
         {
             if (!Program.getE.IsReady() || !Program.evolE || Program.DoubleJumpMenu["DE"].Cast<CheckBox>().CurrentValue || Player.Instance.IsDead || Player.Instance.IsRecalling())
                 return;
-            var Targets = HeroManager.AllHeroes.Where(x => x.IsEnemy&&x.IsValidTarget() && !x.IsInvulnerable && !x.IsZombie);
+            var Targets = EntityManager.Heroes.AllHeroes.Where(x => x.IsEnemy && x.IsValidTarget() && !x.IsInvulnerable && !x.IsZombie);
             if (Program.getQ.IsReady())
             {
                 var CheckQKillable = Targets.FirstOrDefault(x => Vector3.Distance(Player.Instance.ServerPosition, x.ServerPosition) < Program.getQ.Range - 50 && DamageCalc.GetQDamage(x) > x.Health);

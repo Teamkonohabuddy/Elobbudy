@@ -16,34 +16,7 @@ namespace KonoHa_Khazix.Modes
        public static void Do()
        {
            var UseQ = Program.LastHitMenu["QL"].Cast<CheckBox>().CurrentValue;
-          // var UseW = Program.LastHitMenu["WL"].Cast<CheckBox>().CurrentValue;
-     //      var OnlyIfDie = Program.LastHitMenu["UL"].Cast<CheckBox>().CurrentValue;
 
-      /*     if (OnlyIfDie)
-           {
-               if (!Orbwalker.CanAutoAttack)
-               {
-                   var minion =
-   EntityManager.GetLaneMinions(
-       EntityManager.UnitTeam.Enemy,
-       ObjectManager.Player.Position.To2D(),
-       600,
-       true);
-                   if (minion != null)
-                   {
-                       var selectQ =
-                           minion.Where(
-                               t => Player.Instance.TotalAttackDamage >= t.Health && Program.myHero.Distance(t) < Program.getQ.Range)
-                               .FirstOrDefault();
-                       if (selectQ != null)
-                       {
-                           Program.getQ.Cast(selectQ);
-                       }
-                   }
-               }
-           }
-           else
-           {*/
                      var minion =
                 EntityManager.MinionsAndMonsters.GetLaneMinions(
                     EntityManager.UnitTeam.Enemy,
@@ -65,9 +38,7 @@ namespace KonoHa_Khazix.Modes
                        }
                    }
                }
-// add w too lazy for dmg calcs XD
 
-       //    }
 
        }
     }

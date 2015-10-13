@@ -62,7 +62,7 @@ namespace Ryze
             ComboMenu.Add("CW", new CheckBox("Use W"));
             ComboMenu.Add("CR", new CheckBox("Use R"));
             ComboMenu.Add("CRo", new CheckBox("Use R only on Root"));
-         //   ComboMenu.Add("BlockAA", new CheckBox("Block AutoAttacks on combo"));
+            ComboMenu.Add("BlockAA", new CheckBox("Block AutoAttacks on combo"));
             ItemsMenu = menu.AddSubMenu("Items Menu", "Items");
             ItemsMenu.Add("TEAR", new CheckBox("Use Tear"));
             ItemsMenu.Add("TEARFO", new CheckBox("Use Tear only on fountain"));

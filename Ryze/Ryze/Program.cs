@@ -176,9 +176,9 @@ namespace Ryze
             var jungleclearE = JungleclearMenu["JE"].Cast<CheckBox>().CurrentValue;
             var jungleclearR = JungleclearMenu["JR"].Cast<CheckBox>().CurrentValue;
             Obj_AI_Base minion =
-                EntityManager.GetJungleMonsters(
+                EntityManager.MinionsAndMonsters.GetJungleMonsters(
      
-                    ObjectManager.Player.Position.To2D(),
+                    ObjectManager.Player.Position,
                     600,
                     true).FirstOrDefault();
             if (minion != null)
@@ -211,9 +211,9 @@ namespace Ryze
             var laneclearR = LaneClearMenu["LR"].Cast<CheckBox>().CurrentValue;
             var laneclearMinMana = LaneClearMenu["LMANA"].Cast<Slider>().CurrentValue;
             Obj_AI_Base minion =
-                EntityManager.GetLaneMinions(
+                EntityManager.MinionsAndMonsters.GetLaneMinions(
                     EntityManager.UnitTeam.Enemy,
-                    ObjectManager.Player.Position.To2D(),
+                    ObjectManager.Player.Position,
                     600,
                     true).FirstOrDefault();
             if (minion != null && Player.Instance.ManaPercent>laneclearMinMana)

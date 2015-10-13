@@ -19,9 +19,9 @@ namespace KonohaSwain
     internal class Program
     {
         public static Spell.Targeted Q, E;
-        public static Spell.Skillshot W;
+        private static Spell.Skillshot w;
         public static Spell.Active R;
-        public static AIHeroClient selected;
+        private static AIHeroClient selected;
         public static Menu menu,
             ComboMenu,
             HarrassMenu,
@@ -29,7 +29,10 @@ namespace KonohaSwain
             JungleclearMenu,
             MiscMenu,
             DrawingsMenu,   
+            ItemMenu,
             SkinHackMenu;
+           
+
         private static Dictionary<AIHeroClient, Slider> _SkinVals = new Dictionary<AIHeroClient, Slider>();
         private static void Main(string[] args)
         {
@@ -56,9 +59,9 @@ namespace KonohaSwain
             var jungleE = LaneclearMenu["LE"].Cast<CheckBox>().CurrentValue;
             var jungleR = LaneclearMenu["LR"].Cast<CheckBox>().CurrentValue;
             Obj_AI_Base minion =
-        EntityManager.GetJungleMonsters(
+        EntityManager.MinionsAndMonsters.GetJungleMonsters(
 
-            ObjectManager.Player.Position.To2D(),
+            ObjectManager.Player.Position,
             600,
             true).FirstOrDefault();
             if (minion != null)
@@ -95,9 +98,9 @@ namespace KonohaSwain
             var laneE = LaneclearMenu["LE"].Cast<CheckBox>().CurrentValue;
             var laneR = LaneclearMenu["LR"].Cast<CheckBox>().CurrentValue;
             Obj_AI_Base minion =
-         EntityManager.GetLaneMinions(
+         EntityManager.MinionsAndMonsters.GetLaneMinions(
              EntityManager.UnitTeam.Enemy,
-             ObjectManager.Player.Position.To2D(),
+             ObjectManager.Player.Position,
              600,
              true).FirstOrDefault();
             if (minion != null)
@@ -143,13 +146,79 @@ namespace KonohaSwain
                 Circle.Draw(Color.SlateBlue, E.Range, Player.Instance.Position);
             if(drawR)
                 Circle.Draw(Color.SlateBlue,700, Player.Instance.Position);
-            if (selected != null && selected.IsVisible)
+            if (Selected != null && Selected.IsVisible)
             {
-                Circle.Draw(Color.Red, 100, selected.Position);
+                Circle.Draw(Color.Red, 100, Selected.Position);
             }
         }
 
         public static bool Rac;
+
+        public static AIHeroClient Selected
+        {
+            get
+            {
+                return Selected1;
+            }
+
+            set
+            {
+                Selected1 = value;
+            }
+        }
+
+        public static AIHeroClient Selected1
+        {
+            get
+            {
+                return selected;
+            }
+
+            set
+            {
+                selected = value;
+            }
+        }
+
+        public static AIHeroClient Selected2
+        {
+            get
+            {
+                return selected;
+            }
+
+            set
+            {
+                selected = value;
+            }
+        }
+
+        public static Spell.Skillshot W
+        {
+            get
+            {
+                return W1;
+            }
+
+            set
+            {
+                W1 = value;
+            }
+        }
+
+        public static Spell.Skillshot W1
+        {
+            get
+            {
+                return w;
+            }
+
+            set
+            {
+                w = value;
+            }
+        }
+
         private static void Game_OnUpdate(EventArgs args)
         {
             if (Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Combo)
@@ -187,7 +256,7 @@ namespace KonohaSwain
             var comboR = ComboMenu["CR"].Cast<CheckBox>().CurrentValue;
             var comboManualR = ComboMenu["ManualR"].Cast<CheckBox>().CurrentValue;
             var target = TargetSelector.GetTarget(700, DamageType.Magical);
-            if ( selected != null && selected.IsVisible && selected.Position.Distance(ObjectManager.Player) <= 570) target = selected;
+            if ( Selected != null && Selected.IsVisible && Selected.Position.Distance(ObjectManager.Player) <= 570) target = Selected;
             if (target != null)
             {
 
@@ -225,7 +294,7 @@ namespace KonohaSwain
               .OrderBy(h => h.Distance(Game.CursorPos, true)).FirstOrDefault();
             if (trys != null)
             {
-                selected = HeroManager.Enemies
+                Selected = HeroManager.Enemies
                     .FindAll(hero => hero.IsValidTarget() && hero.Distance(Game.CursorPos, true) < 40000) // 200 * 200
                     .OrderBy(h => h.Distance(Game.CursorPos, true)).FirstOrDefault();
             }
@@ -240,6 +309,9 @@ namespace KonohaSwain
             JungleclearMenu = menu.AddSubMenu("Jungleclear", "Jungleclearmenu");
             MiscMenu = menu.AddSubMenu("Misc", "Miscmenu");
             DrawingsMenu = menu.AddSubMenu("Drawings", "Drawingsmenu");
+            ItemMenu = menu.AddSubMenu("Items", "ItemMenu");
+
+                    
             ComboMenu.Add("CQ", new CheckBox("Use Q"));
             ComboMenu.Add("CW", new CheckBox("Use W"));
             ComboMenu.Add("CE", new CheckBox("Use E"));
@@ -263,6 +335,10 @@ namespace KonohaSwain
             DrawingsMenu.Add("Draw W", new CheckBox("Draw W"));
             DrawingsMenu.Add("Draw E", new CheckBox("Draw E"));
             DrawingsMenu.Add("Draw R", new CheckBox("Draw R"));
+            ItemMenu.Add("Use Zhonya", new CheckBox("Use Zhonya if u are dead"));
+            ItemMenu.Add("use Z HP", new Slider("Use Zhonya when ur HP %", 1, 0, 100));
+            ItemMenu.Add("Use Seraph", new Slider("Use Zhonya when ur HP %", 1, 0, 100));
+          
             SkinHackMenu = menu.AddSubMenu("SkinHack", "SkinHack");
             var slid = SkinHackMenu.Add("Skin", new Slider("SkinHack", 0, 0, 3));
             Player.SetSkinId(slid.CurrentValue);

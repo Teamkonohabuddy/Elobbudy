@@ -13,3 +13,13 @@ C:\Users\sergi\Documents\GitHub\Elobbudy\Swain\ConsoleApplication3\bin\Debug\Kon
 C:\Users\sergi\Documents\GitHub\Elobbudy\Swain\ConsoleApplication3\obj\Debug\KonoHa Swain.exe
 C:\Users\sergi\Documents\GitHub\Elobbudy\Swain\ConsoleApplication3\obj\Debug\KonoHa Swain.pdb
 C:\Users\sergi\Documents\GitHub\Elobbudy\Swain\ConsoleApplication3\obj\Debug\KonoHa Swain.csprojResolveAssemblyReference.cache
+C:\Users\mente\Downloads\Elobbudy-master\Elobbudy-master\Swain\ConsoleApplication3\bin\Debug\KonoHa Swain.exe.config
+C:\Users\mente\Downloads\Elobbudy-master\Elobbudy-master\Swain\ConsoleApplication3\obj\Debug\KonoHa Swain.exe
+C:\Users\mente\Downloads\Elobbudy-master\Elobbudy-master\Swain\ConsoleApplication3\bin\Debug\KonoHa Swain.exe
+C:\Users\mente\Downloads\Elobbudy-master\Elobbudy-master\Swain\ConsoleApplication3\bin\Debug\KonoHa Swain.pdb
+C:\Users\mente\Downloads\Elobbudy-master\Elobbudy-master\Swain\ConsoleApplication3\bin\Debug\Newtonsoft.Json.dll
+C:\Users\mente\Downloads\Elobbudy-master\Elobbudy-master\Swain\ConsoleApplication3\obj\Debug\KonoHa Swain.csprojResolveAssemblyReference.cache
+C:\Users\mente\Downloads\Elobbudy-master\Elobbudy-master\Swain\ConsoleApplication3\obj\Debug\KonoHa Swain.pdb
+C:\Users\mente\Downloads\Elobbudy-master\Elobbudy-master\Swain\ConsoleApplication3\bin\Debug\EloBuddy.dll
+C:\Users\mente\Downloads\Elobbudy-master\Elobbudy-master\Swain\ConsoleApplication3\bin\Debug\EloBuddy.SDK.dll
+C:\Users\mente\Downloads\Elobbudy-master\Elobbudy-master\Swain\ConsoleApplication3\bin\Debug\SharpDX.dll

@@ -45,9 +45,9 @@ namespace KonoHa_Khazix.Modes
            else
            {*/
                      var minion =
-                EntityManager.GetLaneMinions(
+                EntityManager.MinionsAndMonsters.GetLaneMinions(
                     EntityManager.UnitTeam.Enemy,
-                    ObjectManager.Player.Position.To2D(),
+                    ObjectManager.Player.Position,
                     600,
                     true);
                if (minion != null)

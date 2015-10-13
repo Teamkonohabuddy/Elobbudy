@@ -146,7 +146,7 @@ namespace Ryze
 
         private static void Game_OnUpdate(EventArgs args)
         {
-  //          Orbwalker.DisableAttacking = false;
+           Orbwalker.DisableAttacking = false;
             if (Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.None)
             {
                 Items.Initzialize();

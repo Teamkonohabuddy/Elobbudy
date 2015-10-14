@@ -20,6 +20,7 @@ namespace KonoHa_Ekko
             this.Flee();
             this.Draw();
             this.LaneClear();
+            this.JungleClear();
             this.Misc();
         }
 

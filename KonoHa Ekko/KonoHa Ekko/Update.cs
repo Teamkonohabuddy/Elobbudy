@@ -19,6 +19,7 @@ namespace KonoHa_Ekko
             this.ComboMode = new Combo();
             this.HarassMode = new Harrash();
             this.LaneclearMode = new Laneclear();
+            this.JungleclearMode = new Jungleclear();
             this.fleeMode=new Flee();
         }
 

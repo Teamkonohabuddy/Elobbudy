@@ -9,3 +9,14 @@ c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\bin
 c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\obj\Debug\KonoHa Ekko.csprojResolveAssemblyReference.cache
 c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\obj\Debug\KonoHa Ekko.exe
 c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\obj\Debug\KonoHa Ekko.pdb
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\bin\Debug\KonoHa Ekko.exe.config
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\obj\Debug\KonoHa Ekko.exe
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\obj\Debug\KonoHa Ekko.pdb
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\bin\Debug\KonoHa Ekko.exe
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\bin\Debug\KonoHa Ekko.pdb
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\bin\Debug\EloBuddy.dll
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\bin\Debug\EloBuddy.SDK.dll
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\bin\Debug\SharpDX.dll
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\bin\Debug\Newtonsoft.Json.dll
+C:\Users\sergi\Documents\GitHub\Elobbudy\KonoHa Ekko\KonoHa Ekko\obj\Debug\KonoHa Ekko.csprojResolveAssemblyReference.cache

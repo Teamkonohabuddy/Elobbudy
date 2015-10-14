@@ -79,10 +79,11 @@ namespace KonoHa_Ekko
                     System.Drawing.Color.YellowGreen);
                 Circle.Draw(Color.YellowGreen, 375, Ghost.Position);
             }
-            if (core.targetSelected.Selected != null)
+            if (core.targetSelected.Selected != null && core.targetSelected.Selected.IsVisible)
             {
-                Circle.Draw(Color.WhiteSmoke, 100, Player.Instance.Position);
+                Circle.Draw(Color.Red, 100,core.targetSelected.Selected.Position);
             }
+            
         }
 
     }

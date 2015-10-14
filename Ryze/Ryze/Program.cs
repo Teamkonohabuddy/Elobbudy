@@ -64,10 +64,10 @@ namespace Ryze
             ComboMenu.Add("CRo", new CheckBox("Use R only on Root"));
             ComboMenu.Add("BlockAA", new CheckBox("Block AutoAttacks on combo"));
             ItemsMenu = menu.AddSubMenu("Items Menu", "Items");
-            ItemsMenu.Add("TEAR", new CheckBox("Use Tear"));
-            ItemsMenu.Add("TEARFO", new CheckBox("Use Tear only on fountain"));
-            ItemsMenu.Add("tearSM", new Slider("Min % Mana to Stack Tear",40,0,100));
-            ItemsMenu.AddSeparator(25);
+      //      ItemsMenu.Add("TEAR", new CheckBox("Use Tear"));
+      //      ItemsMenu.Add("TEARFO", new CheckBox("Use Tear only on fountain"));
+    //        ItemsMenu.Add("tearSM", new Slider("Min % Mana to Stack Tear",40,0,100));
+      //      ItemsMenu.AddSeparator(25);
             ItemsMenu.Add("SERAPH", new CheckBox("Use Serapth"));
             ItemsMenu.Add("seraphHP", new Slider("Hp% for Serapth", 40, 0, 100));
           /*  PotionMenu = ItemsMenu.AddSubMenu("PotionsMenu", "Potions Menu");

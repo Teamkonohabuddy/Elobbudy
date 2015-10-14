@@ -15,7 +15,7 @@ namespace Ryze
         private static Item _tearoftheGoddess = new Item(3070, 0);
         private static Item _tearoftheGoddesss = new Item(3072, 0);
         private static Item _tearoftheGoddessCrystalScar = new Item(3073, 0);
-        private static Item _archangelsStaff = new Item(3003, 0);
+        private static Item _archangelsStaff = new Item(3048, 0);
         private static Item _archangelsStaffCrystalScar = new Item(3007, 0);
         private static Item _manamune = new Item(3004, 0);
         private static Item _manamuneCrystalScar = new Item(3008, 0);
@@ -27,7 +27,7 @@ namespace Ryze
         public static void Initzialize()
         {
         //    UsePotions();
-            UseTear();
+        //    UseTear();
             UseSerapth();
             UseManaMune();
         }
@@ -109,7 +109,6 @@ namespace Ryze
             var serapthHP = Program.ItemsMenu["seraphHP"].Cast<Slider>().CurrentValue;
 
             if (!useSerapth || !Item.HasItem(_archangelsStaff.Id,Player.Instance) || !(Player.Instance.HealthPercent <= serapthHP)) return;
-
             Item.UseItem(_archangelsStaff.Id);
         }
 

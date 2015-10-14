@@ -1,0 +1,11 @@
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\bin\Debug\KonoHa Ekko.exe.config
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\bin\Debug\KonoHa Ekko.exe
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\bin\Debug\KonoHa Ekko.pdb
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\bin\Debug\EloBuddy.dll
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\bin\Debug\EloBuddy.SDK.dll
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\bin\Debug\SharpDX.dll
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\bin\Debug\SharpDX.Direct3D9.dll
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\bin\Debug\Newtonsoft.Json.dll
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\obj\Debug\KonoHa Ekko.csprojResolveAssemblyReference.cache
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\obj\Debug\KonoHa Ekko.exe
+c:\users\sergi\documents\visual studio 2013\Projects\KonoHa Ekko\KonoHa Ekko\obj\Debug\KonoHa Ekko.pdb

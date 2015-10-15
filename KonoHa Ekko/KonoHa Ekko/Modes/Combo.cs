@@ -155,7 +155,10 @@ namespace KonoHa_Ekko.Modes
         private void ChaseMode(EkkoCore core, AIHeroClient target, bool useQ, bool useE, bool useW)
         {
             if (core.spells.Q.IsInRange(target))
-            this.CastE(target, core,useQ);
+                if (useE && core.Player.Distance(target) > core.spells.E.Range * 2)
+                {
+                    this.CastE(target, core, useQ);
+                }
             if (useQ && core.spells.Q.IsInRange(target))
             {
                 var predQ = core.spells.Q.GetPrediction(target);

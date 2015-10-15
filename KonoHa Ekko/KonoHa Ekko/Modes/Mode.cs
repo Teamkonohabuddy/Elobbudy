@@ -32,11 +32,6 @@ namespace KonoHa_Ekko.Modes
             {
                 this.modeActive=mode.Chase;
             }
-            else if (target.Distance(core.Player)
-                     < target.Distance(Prediction.Position.PredictUnitPosition(core.Player, 1000)))
-            {
-                this.modeActive = mode.Flee;
-            }
             else
             {
                 this.modeActive = mode.Normal;

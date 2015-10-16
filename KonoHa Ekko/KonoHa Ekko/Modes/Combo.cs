@@ -214,7 +214,7 @@ namespace KonoHa_Ekko.Modes
             core.spells.E.Cast(vec.To3D());
             Core.DelayAction(() => EloBuddy.Player.IssueOrder(GameObjectOrder.AttackUnit, target), core.spells.E.CastDelay * 1000 + Game.Ping);
           if(useQ)
-            Core.DelayAction(() => core.spells.Q.Cast(target.Position), (core.spells.E.CastDelay+(int)core.Player.AttackDelay )* 1000 + Game.Ping);
+            Core.DelayAction(() => core.spells.Q.Cast(core.targetSelected.Selected), (core.spells.E.CastDelay+(int)core.Player.AttackDelay )* 1000 + Game.Ping);
         }
 
         public bool TheyaReDead(int range, int num, EkkoCore core)

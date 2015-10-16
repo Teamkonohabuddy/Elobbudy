@@ -91,7 +91,7 @@ namespace Ryze
             if (Program.GetPassiveBuff == 4) return;
             //     if (useTearsfo &&Player.Instance.in )
             //      return; añadir infountain
-            if (Player.Instance.IsRecalling) return;
+            if (Player.Instance.IsRecalling()) return;
             if (Program.Q.IsReady() ||
               (!_tearoftheGoddess.IsOwned(Player.Instance) && !_tearoftheGoddessCrystalScar.IsOwned(Player.Instance) &&
                !_archangelsStaff.IsOwned(Player.Instance) && !_archangelsStaffCrystalScar.IsOwned(Player.Instance) &&

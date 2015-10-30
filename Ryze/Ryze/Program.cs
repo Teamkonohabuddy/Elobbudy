@@ -147,8 +147,6 @@ namespace Ryze
         private static void Game_OnUpdate(EventArgs args)
         {
            Orbwalker.DisableAttacking = false;
-            if(GetPassiveBuff!=null)
-           Console.WriteLine("heelo puto buffo : " + GetPassiveBuff);
             if (Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.None)
             {
                 Items.Initzialize();

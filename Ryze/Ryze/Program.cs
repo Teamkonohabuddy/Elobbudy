@@ -284,7 +284,7 @@ namespace Ryze
             {
 
                 var data = ObjectManager.Player.Buffs.FirstOrDefault(b => b.DisplayName == "RyzePassiveStack");
-                return data != null ? data.Count : 0;
+                return data.Count == -1 ? 0 : data.Count == 0 ? 1 : data.Count;
             }
         }
 

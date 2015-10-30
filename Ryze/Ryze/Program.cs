@@ -147,6 +147,8 @@ namespace Ryze
         private static void Game_OnUpdate(EventArgs args)
         {
            Orbwalker.DisableAttacking = false;
+            if(GetPassiveBuff!=null)
+           Console.WriteLine("heelo puto buffo : " + GetPassiveBuff);
             if (Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.None)
             {
                 Items.Initzialize();
@@ -282,9 +284,12 @@ namespace Ryze
         {
             get
             {
-
                 var data = ObjectManager.Player.Buffs.FirstOrDefault(b => b.DisplayName == "RyzePassiveStack");
-                return data.Count == -1 ? 0 : data.Count == 0 ? 1 : data.Count;
+                if (data != null)
+                {
+                    return data.Count == -1 ? 0 : data.Count == 0 ? 1 : data.Count;
+                }
+                return 0;
             }
         }
 

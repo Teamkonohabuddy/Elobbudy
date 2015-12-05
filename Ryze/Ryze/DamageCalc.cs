@@ -79,7 +79,7 @@ namespace Ryze
         public static void DrawDamage(EventArgs args)
         {
 
-            foreach (var unit in HeroManager.Enemies.Where(h => h.IsValid && h.IsHPBarRendered))
+            foreach (var unit in EntityManager.Heroes.Enemies.Where(h => h.IsValid && h.IsHPBarRendered))
             {
                 var damage = DamageToUnit(unit);
 

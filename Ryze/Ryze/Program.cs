@@ -13,11 +13,12 @@ namespace Ryze
     using EloBuddy.SDK.Menu;
     using EloBuddy.SDK.Menu.Values;
     using EloBuddy.SDK.Rendering;
+    using System.Diagnostics;
     //Ryze
     internal class Program
     {
         private static Dictionary<AIHeroClient, Slider> _SkinVals = new Dictionary<AIHeroClient, Slider>();
-        public static Menu menu, ComboMenu, DrawMenu, HarrashMenu, LaneClearMenu,JungleclearMenu,miscMenu, SkinHackMenu,ItemsMenu,PotionMenu;
+        public static Menu menu, ComboMenu, DrawMenu, HarrashMenu, LaneClearMenu,JungleclearMenu,miscMenu, SkinHackMenu,ItemsMenu,PotionMenu,HumanizerMenu;
         public static Spell.Skillshot Q;
         public static Spell.Targeted W, E;
         public static Spell.Active R;
@@ -29,7 +30,7 @@ namespace Ryze
                 return ObjectManager.Player;
             }
         }
-
+        readonly static Random Seeder = new Random();
 
         private static void Main(string[] args)
         {
@@ -56,7 +57,11 @@ namespace Ryze
             LaneClearMenu.Add("LMANA", new Slider("Min. mana for laneclear :", 0, 0, 100));
             DrawMenu = menu.AddSubMenu("Draw", "draw");
             HarrashMenu.Add("HQ", new CheckBox("Use Q"));
-            
+            HumanizerMenu = menu.AddSubMenu("Humanizer", "Humanizer");
+
+            HumanizerMenu.Add("MinDelay",new Slider("Min Delay For Cast",150, 0, 400));
+             HumanizerMenu.Add("MaxDelay",new Slider("Max Delay For Cast",250, 0, 500));
+            HumanizerMenu.Add("Humanizer",new CheckBox("Humanizer Active",false));
             ComboMenu.Add("CQ", new CheckBox("Use Q"));
             ComboMenu.Add("CE", new CheckBox("Use E"));
             ComboMenu.Add("CW", new CheckBox("Use W"));
@@ -132,21 +137,28 @@ namespace Ryze
             {
                 return;
             }
-            var trys = HeroManager.Enemies
+            var trys = EntityManager.Heroes.Enemies
               .FindAll(hero => hero.IsValidTarget() && hero.Distance(Game.CursorPos, true) < 40000) // 200 * 200
               .OrderBy(h => h.Distance(Game.CursorPos, true)).FirstOrDefault();
             if (trys != null)
             {
-                selected= HeroManager.Enemies
+                selected = EntityManager.Heroes.Enemies
                     .FindAll(hero => hero.IsValidTarget() && hero.Distance(Game.CursorPos, true) < 40000) // 200 * 200
                     .OrderBy(h => h.Distance(Game.CursorPos, true)).FirstOrDefault();
             }
 
         }
-
+        static float gametime;
+       static float delay;
+       static float startTime;
         private static void Game_OnUpdate(EventArgs args)
         {
            Orbwalker.DisableAttacking = false;
+        //   gametime += Game.Time * 1000;
+           gametime =( Game.Time - startTime)*1000;
+           if (gametime >= delay && HumanizerMenu["Humanizer"].Cast<CheckBox>().CurrentValue)
+            {
+                gametime = 0;
             if (Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.None)
             {
                 Items.Initzialize();
@@ -167,6 +179,9 @@ namespace Ryze
             {
                 JungleClear();
             }
+             startTime = Game.Time;
+        delay = Seeder.Next(HumanizerMenu["MinDelay"].Cast<Slider>().CurrentValue, HumanizerMenu["MaxDelay"].Cast<Slider>().CurrentValue);
+        }
         }
 
         private static void JungleClear()

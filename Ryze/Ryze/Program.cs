@@ -156,7 +156,7 @@ namespace Ryze
            Orbwalker.DisableAttacking = false;
         //   gametime += Game.Time * 1000;
            gametime =( Game.Time - startTime)*1000;
-           if (gametime >= delay && HumanizerMenu["Humanizer"].Cast<CheckBox>().CurrentValue)
+           if ((gametime >= delay && HumanizerMenu["Humanizer"].Cast<CheckBox>().CurrentValue) || HumanizerMenu["Humanizer"].Cast<CheckBox>().CurrentValue==false)
             {
                 gametime = 0;
             if (Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.None)

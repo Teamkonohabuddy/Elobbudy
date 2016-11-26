@@ -95,21 +95,22 @@ namespace KonohaSwain
             var laneW = LaneclearMenu["LW"].Cast<CheckBox>().CurrentValue;
             var laneE = LaneclearMenu["LE"].Cast<CheckBox>().CurrentValue;
             var laneR = LaneclearMenu["LR"].Cast<CheckBox>().CurrentValue;
-            Obj_AI_Base minion =
-         EntityManager.MinionsAndMonsters.GetLaneMinions(
-             EntityManager.UnitTeam.Enemy,
-             ObjectManager.Player.Position,
-             600,
-             true).FirstOrDefault();
+            var manualR = LaneclearMenu["ManualLR"].Cast<CheckBox>().CurrentValue;
+
+            var minion =
+                     EntityManager.MinionsAndMonsters.GetLaneMinions(EntityManager.UnitTeam.Enemy,
+                         Player.Instance.Position, 1500, false);
             if (minion != null)
             {
-
+                var predictResult =
+                    Prediction.Position.PredictCircularMissileAoe(minion.Cast<Obj_AI_Base>().ToArray(), W.Range, W.Radius, W.CastDelay, W.Speed)
+                        .OrderByDescending(r => r.GetCollisionObjects<Obj_AI_Minion>().Length).FirstOrDefault();
                 if (laneQ)
-                    Q.Cast(minion);
-                if (laneW)
-                    W.Cast(minion);
+                    Q.Cast(predictResult.CastPosition);
+                if (laneW&& predictResult != null && predictResult.CollisionObjects.Length >= LaneclearMenu["Use laneclear if"].Cast<Slider>().CurrentValue)
+                    W.Cast(predictResult.CastPosition);
                 if (laneE)
-                    E.Cast(minion);
+                    E.Cast(predictResult.CastPosition);
                 if (laneR && R.Handle.ToggleState == 1)
                 {
                     R.Cast();
@@ -120,7 +121,7 @@ namespace KonohaSwain
             }
             else
             {
-                if (R.Handle.ToggleState == 2)
+                if (R.Handle.ToggleState == 2 &&  !manualR)
                 {
                     R.Cast();
                     lanet = false;
@@ -263,6 +264,8 @@ namespace KonohaSwain
             LaneclearMenu.Add("Lw", new CheckBox("Use W"));
             LaneclearMenu.Add("LE", new CheckBox("Use E"));
             LaneclearMenu.Add("LR", new CheckBox("Use R"));
+            LaneclearMenu.Add("Use laneclear if", new Slider("Use if",0,3,6));
+            ComboMenu.Add("ManualLR", new CheckBox("Manual off R"));
             JungleclearMenu.Add("JQ", new CheckBox("Use Q"));
             JungleclearMenu.Add("JW", new CheckBox("Use W"));
             JungleclearMenu.Add("JE", new CheckBox("Use E"));

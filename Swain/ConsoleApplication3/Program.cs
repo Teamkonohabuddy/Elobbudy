@@ -111,7 +111,7 @@ namespace KonohaSwain
                         Q.Cast(predictResult.CastPosition);
                     if (laneW && predictResult != null &&
                         predictResult.CollisionObjects.Length >=
-                        LaneclearMenu["Use laneclear if"].Cast<Slider>().CurrentValue)
+                        LaneclearMenu["LCI"].Cast<Slider>().CurrentValue)
                         W.Cast(predictResult.CastPosition);
                     if (laneE)
                         E.Cast(predictResult.CastPosition);
@@ -268,7 +268,7 @@ namespace KonohaSwain
             LaneclearMenu.Add("Lw", new CheckBox("Use W"));
             LaneclearMenu.Add("LE", new CheckBox("Use E"));
             LaneclearMenu.Add("LR", new CheckBox("Use R"));
-            LaneclearMenu.Add("Use laneclear if", new Slider("Use if",0,3,6));
+            LaneclearMenu.Add("LCI", new Slider("Use if",0,3,6));
             ComboMenu.Add("ManualLR", new CheckBox("Manual off R"));
             JungleclearMenu.Add("JQ", new CheckBox("Use Q"));
             JungleclearMenu.Add("JW", new CheckBox("Use W"));

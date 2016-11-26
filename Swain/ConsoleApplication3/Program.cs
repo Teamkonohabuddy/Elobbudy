@@ -105,23 +105,28 @@ namespace KonohaSwain
                 var predictResult =
                     Prediction.Position.PredictCircularMissileAoe(minion.Cast<Obj_AI_Base>().ToArray(), W.Range, W.Radius, W.CastDelay, W.Speed)
                         .OrderByDescending(r => r.GetCollisionObjects<Obj_AI_Minion>().Length).FirstOrDefault();
-                if (laneQ)
-                    Q.Cast(predictResult.CastPosition);
-                if (laneW&& predictResult != null && predictResult.CollisionObjects.Length >= LaneclearMenu["Use laneclear if"].Cast<Slider>().CurrentValue)
-                    W.Cast(predictResult.CastPosition);
-                if (laneE)
-                    E.Cast(predictResult.CastPosition);
-                if (laneR && R.Handle.ToggleState == 1)
+                if (predictResult != null)
                 {
-                    R.Cast();
-                    lanet = true;
+                    if (laneQ)
+                        Q.Cast(predictResult.CastPosition);
+                    if (laneW && predictResult != null &&
+                        predictResult.CollisionObjects.Length >=
+                        LaneclearMenu["Use laneclear if"].Cast<Slider>().CurrentValue)
+                        W.Cast(predictResult.CastPosition);
+                    if (laneE)
+                        E.Cast(predictResult.CastPosition);
+                    if (laneR && R.Handle.ToggleState == 1)
+                    {
+                        R.Cast();
+                        lanet = true;
+                    }
                 }
 
 
             }
             else
             {
-                if (R.Handle.ToggleState == 2 &&  !manualR)
+                if (R.Handle.ToggleState == 2 && !manualR)
                 {
                     R.Cast();
                     lanet = false;
@@ -129,7 +134,6 @@ namespace KonohaSwain
             }
 
         }
-
         public static bool lanet , julet;
         private static void Drawing_OnDraw(EventArgs args)
         {

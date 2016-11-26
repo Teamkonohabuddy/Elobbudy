@@ -48,7 +48,6 @@ namespace KonohaSwain
             R = new Spell.Active(SpellSlot.R);
             Loadmenu();
             Game.OnUpdate += Game_OnUpdate;
-            Game.OnWndProc += OnProc;
             _SkinVals[ObjectManager.Player].OnValueChange += Program_OnValueChange;
             Drawing.OnDraw += Drawing_OnDraw;
         }
@@ -282,24 +281,6 @@ namespace KonohaSwain
 
         }
 
-        private static void OnProc(WndEventArgs args)
-        {
-
-            if (args.Msg != (uint)WindowMessages.LeftButtonDown)
-            {
-                return;
-            }
-            var trys = HeroManager.Enemies
-              .FindAll(hero => hero.IsValidTarget() && hero.Distance(Game.CursorPos, true) < 40000) // 200 * 200
-              .OrderBy(h => h.Distance(Game.CursorPos, true)).FirstOrDefault();
-            if (trys != null)
-            {
-                Selected = HeroManager.Enemies
-                    .FindAll(hero => hero.IsValidTarget() && hero.Distance(Game.CursorPos, true) < 40000) // 200 * 200
-                    .OrderBy(h => h.Distance(Game.CursorPos, true)).FirstOrDefault();
-            }
-
-        }
         private static void Loadmenu()
         {
             menu = MainMenu.AddMenu("Swain", "Swain");

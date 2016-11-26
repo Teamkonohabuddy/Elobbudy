@@ -21,7 +21,6 @@ namespace KonohaSwain
         public static Spell.Targeted Q, E;
         private static Spell.Skillshot w;
         public static Spell.Active R;
-        private static AIHeroClient selected;
         public static Menu menu,
             ComboMenu,
             HarrassMenu,
@@ -145,52 +144,11 @@ namespace KonohaSwain
                 Circle.Draw(Color.SlateBlue, E.Range, Player.Instance.Position);
             if(drawR)
                 Circle.Draw(Color.SlateBlue,700, Player.Instance.Position);
-            if (Selected != null && Selected.IsVisible)
-            {
-                Circle.Draw(Color.Red, 100, Selected.Position);
-            }
         }
 
         public static bool Rac;
 
-        public static AIHeroClient Selected
-        {
-            get
-            {
-                return Selected1;
-            }
 
-            set
-            {
-                Selected1 = value;
-            }
-        }
-
-        public static AIHeroClient Selected1
-        {
-            get
-            {
-                return selected;
-            }
-
-            set
-            {
-                selected = value;
-            }
-        }
-
-        public static AIHeroClient Selected2
-        {
-            get
-            {
-                return selected;
-            }
-
-            set
-            {
-                selected = value;
-            }
-        }
 
         public static Spell.Skillshot W
         {
@@ -255,7 +213,6 @@ namespace KonohaSwain
             var comboR = ComboMenu["CR"].Cast<CheckBox>().CurrentValue;
             var comboManualR = ComboMenu["ManualR"].Cast<CheckBox>().CurrentValue;
             var target = TargetSelector.GetTarget(700, DamageType.Magical);
-            if ( Selected != null && Selected.IsVisible && Selected.Position.Distance(ObjectManager.Player) <= 570) target = Selected;
             if (target != null)
             {
 

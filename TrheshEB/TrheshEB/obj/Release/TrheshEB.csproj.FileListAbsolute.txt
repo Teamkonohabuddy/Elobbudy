@@ -1,0 +1,11 @@
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\bin\Release\TrheshEB.exe.config
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\bin\Release\TrheshEB.exe
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\bin\Release\TrheshEB.pdb
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\bin\Release\EloBuddy.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\bin\Release\EloBuddy.SDK.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\bin\Release\SharpDX.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\bin\Release\Newtonsoft.Json.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\bin\Release\EloBuddy.Sandbox.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\obj\Release\TrheshEB.exe
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\TrheshEB\TrheshEB\obj\Release\TrheshEB.pdb

@@ -158,10 +158,11 @@ namespace TrheshEB
             }
             else if(ComboMenu["R"].Cast<CheckBox>().CurrentValue && R.IsReady()&& target.IsValidTarget(R.Range))
             {
-                if (ComboMenu["RSlider"].Cast<Slider>().CurrentValue>=GetEnemysOnRange(player,R.Range))
-                {
+                Chat.Print(ComboMenu["RSlider"].Cast<Slider>().CurrentValue);
+           //     if (ComboMenu["RSlider"].Cast<Slider>().CurrentValue>=GetEnemysOnRange(player,R.Range))
+             //   {
                     R.Cast(target);
-                }
+              //  }
                 }
 
 

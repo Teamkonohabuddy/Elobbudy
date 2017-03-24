@@ -57,7 +57,7 @@ namespace TrheshEB
                 ComboMenu.Add("W", new CheckBox("Use W to ally target"));
                 ComboMenu.Add("E", new CheckBox("Use E"));
                 ComboMenu.Add("R", new CheckBox("Use R"));
-                ComboMenu.Add("RSlider", new Slider("N. Enemys to R :", 1,1, 5));
+               // ComboMenu.Add("RSlider", new Slider("N. Enemys to R :", 1,1, 5));
                 HarassMenu = ThreshMenu.AddSubMenu("Harass");
                 HarassMenu.Add("HQ1", new CheckBox("Use Q1"));
                 HarassMenu.Add("HQ2", new CheckBox("Use Q2"));
@@ -164,10 +164,10 @@ namespace TrheshEB
                 else if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && R.IsReady() && target.IsValidTarget(R.Range))
                 {
                //     Chat.Print(ComboMenu["RSlider"].Cast<Slider>().CurrentValue);
-                         if (ComboMenu["RSlider"].Cast<Slider>().CurrentValue>=GetEnemysOnRange(player,R.Range))
-                       {
+                   //      if (ComboMenu["RSlider"].Cast<Slider>().CurrentValue>=GetEnemysOnRange(player,R.Range))
+                 //      {
                     R.Cast(target);
-                      }
+                   //   }
                 }
             }
         }

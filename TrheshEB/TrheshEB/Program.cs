@@ -19,7 +19,7 @@ namespace TrheshEB
         private static Spell.Skillshot W;
         private static Spell.Skillshot E;
         private static Spell.Active R;
-        private static Menu ThreshMenu, ComboMenu,MiscMenu;
+        private static Menu ThreshMenu, ComboMenu, DrawingMenu,MiscMenu,DrawMenu,HarassMenu;
         private static AIHeroClient player => ObjectManager.Player;
         static void Main(string[] args)
         {
@@ -29,6 +29,7 @@ namespace TrheshEB
 
         private static void Loading_OnLoading(EventArgs args)
         {
+            
             if (Player.Instance.ChampionName == "Thresh")
             {
                 Q = new Spell.Skillshot(SpellSlot.Q, 1040, SkillShotType.Linear, 500, 1900, 60) //RealRange = 1075, RealWidth = 70.
@@ -47,21 +48,49 @@ namespace TrheshEB
 
 
                 Game.OnTick += Game_OnUpdate;
-                Interrupter.OnInterruptableSpell += Interrupter_OnInterruptableSpell;
-                Gapcloser.OnGapcloser += Gapcloser_OnGapcloser;
                 ThreshMenu = MainMenu.AddMenu("Thresh","thresh");
                 ComboMenu = ThreshMenu.AddSubMenu("Combo");
 
-                ComboMenu.Add("Q",new CheckBox("Use Q"));
-                ComboMenu.Add("W", new CheckBox("Use W"));
+                ComboMenu.Add("Q1",new CheckBox("Use Q1"));
+                ComboMenu.Add("Q2", new CheckBox("Use Q2"));
+                ComboMenu.Add("W", new CheckBox("Use W to ally target"));
                 ComboMenu.Add("E", new CheckBox("Use E"));
                 ComboMenu.Add("R", new CheckBox("Use R"));
+
+
+                HarassMenu.Add("HQ1", new CheckBox("Use Q1"));
+                HarassMenu.Add("HQ2", new CheckBox("Use Q2"));
+                HarassMenu.Add("HW", new CheckBox("Use W to ally target"));
+                HarassMenu.Add("HE", new CheckBox("Use E"));
+                HarassMenu.Add("HEM",new Slider("0-Pull 1-Push",1,0,1));
                 MiscMenu = ThreshMenu.AddSubMenu("Misc");
                 MiscMenu.Add("QG", new CheckBox("Use Q gapcloser"));
                 MiscMenu.Add("EG", new CheckBox("Use E gapcloser"));
-
+                DrawMenu = ThreshMenu.AddSubMenu("Drawings");
+                DrawMenu.Add("DQ",new CheckBox("Draw Q"));
+                DrawMenu.Add("DE", new CheckBox("Draw E"));
+                DrawMenu.Add("DR", new CheckBox("Draw R"));
+                Interrupter.OnInterruptableSpell += Interrupter_OnInterruptableSpell;
+                Gapcloser.OnGapcloser += Gapcloser_OnGapcloser;
+                Drawing.OnDraw += OnDraw; 
                 return;
 
+            }
+        }
+
+        private static void OnDraw(EventArgs args)
+        {
+            if(DrawMenu["DQ"].Cast<CheckBox>().CurrentValue)
+            {
+                Drawing.DrawCircle(player.Position, Q.Range, System.Drawing.Color.Red);
+            }
+            if (DrawMenu["DE"].Cast<CheckBox>().CurrentValue)
+            {
+                Drawing.DrawCircle(player.Position, E.Range, System.Drawing.Color.Gray);
+            }
+            if (DrawMenu["DR"].Cast<CheckBox>().CurrentValue)
+            {
+                Drawing.DrawCircle(player.Position, E.Range, System.Drawing.Color.GreenYellow);
             }
         }
 
@@ -75,45 +104,94 @@ namespace TrheshEB
 
         private static void Gapcloser_OnGapcloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs e)
         {
-            if (!sender.IsValidTarget()) return;
+            Chat.Print(sender.ChampionName);
             if (MiscMenu["EG"].Cast<CheckBox>().CurrentValue)
             {
-                if (Ally.Distance(e.End, true) < Ally.Distance(e.Start, true))
+              if(sender.Distance(player,false)<=E.Range)
                 {
-                   Push(sender);
+                    if (E.IsReady() && sender.IsEnemy)
+                    {
+                        E.Cast(sender.Position);
+                    }
                 }
-                else
-                {
-                  Pull(sender);
-                }
+
+                
             }
-            if (MiscMenu["EQ"].Cast<CheckBox>().CurrentValue)
+       /*     if (MiscMenu["QG"].Cast<CheckBox>().CurrentValue)
             {
                 if (Ally.Distance(e.End, true) > Ally.Distance(e.Start, true))
                 {
                  Q.Cast(sender);
                 }
-            }
+            }*/
         }
 
         private static void Combo()
         {
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Physical);
             var QPred = Q.GetPrediction(target);
-            if(Pull(target))
-            {
-                Chat.Print("Pull");
-            }
-            else if(QPred.HitChance>=HitChance.High&&Q.IsReady()&&target.IsValidTarget(Q.Range))
+            if (ComboMenu["E"].Cast<CheckBox>().CurrentValue && Pull(target)) { }
+            else if(ComboMenu["Q1"].Cast<CheckBox>().CurrentValue && QPred.HitChance>=HitChance.High&&Q.IsReady()&&target.IsValidTarget(Q.Range) && Q.Name=="ThreshQ")
             {
                 Q.Cast(target);
             }
-            else if(R.IsReady()&& target.IsValidTarget(R.Range))
+            else if( Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQLeap")
+            {
+                if(ComboMenu["W"].Cast<CheckBox>().CurrentValue)
+                        {
+                    var Atargets = EntityManager.Heroes.Allies.Where(x=>x!=player&&x.Distance(player)<=W.Range ).OrderBy(x=>x.Health).FirstOrDefault();
+                    if (Atargets != null)
+                    {
+                        W.Cast(Atargets.Position);
+                    }
+                }
+                if (ComboMenu["Q2"].Cast<CheckBox>().CurrentValue)
+                {
+                    Q.Cast(target);
+                }
+            }
+            else if(ComboMenu["R"].Cast<CheckBox>().CurrentValue && R.IsReady()&& target.IsValidTarget(R.Range))
             {
                 R.Cast(target);
             }
 
 
+        }
+        public bool select(AIHeroClient target)
+        {
+            if (ComboMenu["HEM"].Cast<Slider>().CurrentValue==0)
+            {
+                return Pull(target);
+            }
+            else
+            {
+                return Push(target);
+            }
+        }
+        private static void Harass()
+        {
+            var target = TargetSelector.GetTarget(Q.Range, DamageType.Physical);
+            var QPred = Q.GetPrediction(target);
+            if (ComboMenu["HE"].Cast<CheckBox>().CurrentValue && Pull(target)) { }
+            else if (ComboMenu["HQ1"].Cast<CheckBox>().CurrentValue && QPred.HitChance >= HitChance.High && Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQ")
+            {
+                Q.Cast(target);
+            }
+            else if (Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQLeap")
+            {
+                if (ComboMenu["HW"].Cast<CheckBox>().CurrentValue)
+                {
+                    var Atargets = EntityManager.Heroes.Allies.Where(x => x != player && x.Distance(player) <= W.Range).OrderBy(x => x.Health).FirstOrDefault();
+                    if (Atargets != null)
+                    {
+                        W.Cast(Atargets.Position);
+                    }
+                }
+                if (ComboMenu["HQ2"].Cast<CheckBox>().CurrentValue)
+                {
+                    Q.Cast(target);
+                }
+            }
         }
         public static AIHeroClient Ally
         {
@@ -126,7 +204,7 @@ namespace TrheshEB
             }
         }
 
-        public static void Push(Obj_AI_Base target)
+        public static bool Push(Obj_AI_Base target)
         {
             if (E.IsReady() && target.IsValidTarget(E.Range) && target.IsEnemy)
             {
@@ -134,10 +212,11 @@ namespace TrheshEB
                 if (pred.HitChance>= HitChance.High)
                 {
                     E.Cast(pred.CastPosition);
+                    return true;
                 }
             }
+            return false;
         }
-
         public static bool Pull(Obj_AI_Base target)
         {
             if (E.IsReady()&& target.IsValidTarget(E.Range) && target.IsEnemy)
@@ -185,7 +264,11 @@ namespace TrheshEB
         
         private static void Game_OnUpdate(EventArgs args)
         {
-        if(Orbwalker.ActiveModesFlags.Equals(Orbwalker.ActiveModes.Combo))
+            if (Orbwalker.ActiveModesFlags.Equals(Orbwalker.ActiveModes.Harass))
+            {
+                Harass();
+            }
+                if (Orbwalker.ActiveModesFlags.Equals(Orbwalker.ActiveModes.Combo))
             {
                 Combo();
             }

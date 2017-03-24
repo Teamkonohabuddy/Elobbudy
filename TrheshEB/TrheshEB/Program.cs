@@ -181,6 +181,7 @@ namespace TrheshEB
         private static void Harass()
         {
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Physical);
+            if (target == null) return;
             var QPred = Q.GetPrediction(target);
             if (ComboMenu["HE"].Cast<CheckBox>().CurrentValue && Pull(target)) { }
             else if (ComboMenu["HQ1"].Cast<CheckBox>().CurrentValue && QPred.HitChance >= HitChance.High && Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQ")

@@ -135,39 +135,40 @@ namespace TrheshEB
         private static void Combo()
         {
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Physical);
-            if (target == null) return;
-            var QPred = Q.GetPrediction(target);
-            if (ComboMenu["E"].Cast<CheckBox>().CurrentValue && Pull(target)) { }
-            else if(ComboMenu["Q1"].Cast<CheckBox>().CurrentValue && QPred.HitChance>=HitChance.High&&Q.IsReady()&&target.IsValidTarget(Q.Range) && Q.Name=="ThreshQ")
+            if (target != null)
             {
-                Q.Cast(target);
-            }
-            else if( Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQLeap")
-            {
-                if(ComboMenu["W"].Cast<CheckBox>().CurrentValue)
-                        {
-                    var Atargets = EntityManager.Heroes.Allies.Where(x=>x!=player&&x.Distance(player)<=W.Range ).OrderBy(x=>x.Health).FirstOrDefault();
-                    if (Atargets != null)
-                    {
-                        W.Cast(Atargets.Position);
-                    }
-                }
-                if (ComboMenu["Q2"].Cast<CheckBox>().CurrentValue)
+                var QPred = Q.GetPrediction(target);
+                if (ComboMenu["E"].Cast<CheckBox>().CurrentValue && Pull(target)) { }
+                else if (ComboMenu["Q1"].Cast<CheckBox>().CurrentValue && QPred.HitChance >= HitChance.High && Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQ")
                 {
                     Q.Cast(target);
                 }
-            }
-            else if(ComboMenu["R"].Cast<CheckBox>().CurrentValue && R.IsReady()&& target.IsValidTarget(R.Range))
-            {
-                Chat.Print(ComboMenu["RSlider"].Cast<Slider>().CurrentValue);
-           //     if (ComboMenu["RSlider"].Cast<Slider>().CurrentValue>=GetEnemysOnRange(player,R.Range))
-             //   {
-                    R.Cast(target);
-              //  }
+                else if (Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQLeap")
+                {
+                    if (ComboMenu["W"].Cast<CheckBox>().CurrentValue)
+                    {
+                        var Atargets = EntityManager.Heroes.Allies.Where(x => x != player && x.Distance(player) <= W.Range).OrderBy(x => x.Health).FirstOrDefault();
+                        if (Atargets != null)
+                        {
+                            W.Cast(Atargets.Position);
+                        }
+                    }
+                    if (ComboMenu["Q2"].Cast<CheckBox>().CurrentValue)
+                    {
+                        Q.Cast(target);
+                    }
                 }
-
-
+                else if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && R.IsReady() && target.IsValidTarget(R.Range))
+                {
+                    Chat.Print(ComboMenu["RSlider"].Cast<Slider>().CurrentValue);
+                    //     if (ComboMenu["RSlider"].Cast<Slider>().CurrentValue>=GetEnemysOnRange(player,R.Range))
+                    //   {
+                    R.Cast(target);
+                    //  }
+                }
+            }
         }
+        
         public bool select(AIHeroClient target)
         {
             if (ComboMenu["HEM"].Cast<Slider>().CurrentValue==0)

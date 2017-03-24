@@ -57,7 +57,7 @@ namespace TrheshEB
                 ComboMenu.Add("E", new CheckBox("Use E"));
                 ComboMenu.Add("R", new CheckBox("Use R"));
 
-
+                HarassMenu = ThreshMenu.AddSubMenu("Harass");
                 HarassMenu.Add("HQ1", new CheckBox("Use Q1"));
                 HarassMenu.Add("HQ2", new CheckBox("Use Q2"));
                 HarassMenu.Add("HW", new CheckBox("Use W to ally target"));

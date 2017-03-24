@@ -6,7 +6,6 @@ c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\bin\Debug
 c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\bin\Debug\SharpDX.dll
 c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\bin\Debug\SharpDX.Direct3D9.dll
 c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\bin\Debug\Newtonsoft.Json.dll
-c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\bin\Debug\EloBuddy.Sandbox.dll
 c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\obj\Debug\TrheshEB.csprojResolveAssemblyReference.cache
 c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\obj\Debug\TrheshEB.exe
 c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\obj\Debug\TrheshEB.pdb

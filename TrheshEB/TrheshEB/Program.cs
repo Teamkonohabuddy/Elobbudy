@@ -135,6 +135,7 @@ namespace TrheshEB
         private static void Combo()
         {
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Physical);
+            if (target == null) return;
             var QPred = Q.GetPrediction(target);
             if (ComboMenu["E"].Cast<CheckBox>().CurrentValue && Pull(target)) { }
             else if(ComboMenu["Q1"].Cast<CheckBox>().CurrentValue && QPred.HitChance>=HitChance.High&&Q.IsReady()&&target.IsValidTarget(Q.Range) && Q.Name=="ThreshQ")
@@ -279,7 +280,7 @@ namespace TrheshEB
             {
                 Harass();
             }
-                if (Orbwalker.ActiveModesFlags.Equals(Orbwalker.ActiveModes.Combo))
+            if (Orbwalker.ActiveModesFlags.Equals(Orbwalker.ActiveModes.Combo))
             {
                 Combo();
             }

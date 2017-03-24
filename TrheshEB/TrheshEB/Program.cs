@@ -127,7 +127,7 @@ namespace TrheshEB
         }
         private static int GetEnemysOnRange(Obj_AI_Base target,uint range)
         {
-            Chat.Print("Range checking : " + range);
+      //      Chat.Print("Range checking : " + range);
             return 2;
         //    return EntityManager.Heroes.Enemies.Where(x => target.Position.Distance(x.Position) <= range).Count();
        

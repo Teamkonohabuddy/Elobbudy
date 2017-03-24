@@ -138,9 +138,11 @@ namespace TrheshEB
             if (target != null)
             {
                 var QPred = Q.GetPrediction(target);
+
                 if (ComboMenu["E"].Cast<CheckBox>().CurrentValue && Pull(target)) { }
                 else if (ComboMenu["Q1"].Cast<CheckBox>().CurrentValue && QPred.HitChance >= HitChance.High && Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQ")
                 {
+                    Chat.Print("Cast Q");
                     Q.Cast(target);
                 }
                 else if (Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQLeap")

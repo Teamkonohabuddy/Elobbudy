@@ -105,7 +105,7 @@ namespace TrheshEB
 
         private static void Gapcloser_OnGapcloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs e)
         {
-            Chat.Print(sender.ChampionName);
+           // Chat.Print(sender.ChampionName);
             if (MiscMenu["EG"].Cast<CheckBox>().CurrentValue)
             {
               if(sender.Distance(player,false)<=E.Range)

@@ -142,7 +142,7 @@ namespace TrheshEB
                 if (ComboMenu["E"].Cast<CheckBox>().CurrentValue && Pull(target)) { }
                 else if (ComboMenu["Q1"].Cast<CheckBox>().CurrentValue && QPred.HitChance >= HitChance.High && Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQ")
                 {
-                    Chat.Print("Cast Q");
+                //    Chat.Print("Cast Q");
                     Q.Cast(target);
                 }
                 else if (Q.IsReady() && target.IsValidTarget(Q.Range) && Q.Name == "ThreshQLeap")
@@ -162,7 +162,7 @@ namespace TrheshEB
                 }
                 else if (ComboMenu["R"].Cast<CheckBox>().CurrentValue && R.IsReady() && target.IsValidTarget(R.Range))
                 {
-                    Chat.Print(ComboMenu["RSlider"].Cast<Slider>().CurrentValue);
+               //     Chat.Print(ComboMenu["RSlider"].Cast<Slider>().CurrentValue);
                          if (ComboMenu["RSlider"].Cast<Slider>().CurrentValue>=GetEnemysOnRange(player,R.Range))
                        {
                     R.Cast(target);
@@ -274,7 +274,7 @@ namespace TrheshEB
                 }
                 
             }
-            Chat.Print("cant pull");
+         //   Chat.Print("cant pull");
             return false;
         }
         

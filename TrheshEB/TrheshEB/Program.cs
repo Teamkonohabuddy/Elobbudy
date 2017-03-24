@@ -32,6 +32,7 @@ namespace TrheshEB
             
             if (Player.Instance.ChampionName == "Thresh")
             {
+                Chat.Print("Thresh by Kakashi and Naruto team.");
                 Q = new Spell.Skillshot(SpellSlot.Q, 1040, SkillShotType.Linear, 500, 1900, 60) //RealRange = 1075, RealWidth = 70.
                 {
                     AllowedCollisionCount = 0

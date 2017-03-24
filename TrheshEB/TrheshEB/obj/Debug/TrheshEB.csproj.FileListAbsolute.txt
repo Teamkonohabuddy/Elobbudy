@@ -9,3 +9,14 @@ c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\bin\Debug
 c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\obj\Debug\TrheshEB.csprojResolveAssemblyReference.cache
 c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\obj\Debug\TrheshEB.exe
 c:\Users\sergi\documents\visual studio 2015\Projects\TrheshEB\TrheshEB\obj\Debug\TrheshEB.pdb
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\bin\Debug\TrheshEB.exe.config
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\obj\Debug\TrheshEB.exe
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\obj\Debug\TrheshEB.pdb
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\bin\Debug\TrheshEB.exe
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\bin\Debug\TrheshEB.pdb
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\bin\Debug\EloBuddy.dll
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\bin\Debug\EloBuddy.SDK.dll
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\bin\Debug\SharpDX.dll
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\bin\Debug\Newtonsoft.Json.dll
+C:\Users\sergi\Documents\GithubElobbudy\Elobbudy\TrheshEB\TrheshEB\obj\Debug\TrheshEB.csprojResolveAssemblyReference.cache

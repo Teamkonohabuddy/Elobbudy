@@ -128,7 +128,8 @@ namespace TrheshEB
         private static int GetEnemysOnRange(Obj_AI_Base target,uint range)
         {
             Chat.Print("Range checking : " + range);
-            return EntityManager.Heroes.Enemies.Where(x => target.Position.Distance(x.Position) <= range).Count();
+            return 2;
+        //    return EntityManager.Heroes.Enemies.Where(x => target.Position.Distance(x.Position) <= range).Count();
        
         }
         private static void Combo()
@@ -157,10 +158,10 @@ namespace TrheshEB
             }
             else if(ComboMenu["R"].Cast<CheckBox>().CurrentValue && R.IsReady()&& target.IsValidTarget(R.Range))
             {
-         //       if (ComboMenu["RSlider"].Cast<Slider>().CurrentValue>=GetEnemysOnRange(player,R.Range))
-           //     {
+                if (ComboMenu["RSlider"].Cast<Slider>().CurrentValue>=GetEnemysOnRange(player,R.Range))
+                {
                     R.Cast(target);
-             //   }
+                }
                 }
 
 
